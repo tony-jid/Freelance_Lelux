@@ -43,7 +43,7 @@
 						where shift.shift_date = '{$date}'
 							and shift.shift_type_id != 6 -- not Reception!
 						union all
-						select 9 as seq, therapist.therapist_id, therapist.therapist_name as therapist_name, reception_record_total_com as therapist_guarantee, null, reception_record_std_com, reception_record_extra_com, reception_record_total_com
+						select 9 as seq, therapist.therapist_id, therapist.therapist_name as therapist_name, reception_record_total_com as therapist_guarantee, 0, reception_record_std_com, reception_record_extra_com, reception_record_total_com
 						from reception_record
 						join therapist on therapist.therapist_id = reception_record.therapist_id
 						where reception_record.reception_record_date = '{$date}'
@@ -51,7 +51,8 @@
 					) as com_details
 					left join shift on shift.therapist_id = com_details.therapist_id and shift.shift_date = '{$date}'
 					left join shift_type on shift_type.shift_type_id = shift.shift_type_id
-					group by therapist_name";
+					group by therapist_id, therapist_name, therapist_guarantee, shift_type_rate, seq
+					order by seq, therapist_name";
 			
 			$sql_total = "
 					select 99 as seq, null, 'Total', null, null, null, null, sum(massage_record_commission_total)

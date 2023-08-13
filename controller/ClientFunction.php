@@ -151,7 +151,7 @@
 			
 			$client->setPatientID($clientInfo['client_patient_id']);
 			//$client->setPatientID(empty($clientInfo['client_patient_id']) ? 1 : $clientInfo['client_patient_id']);
-			$client->setBirthday(empty($clientInfo['client_birthday']) ? "" : Utilities::convertDateForDB($clientInfo['client_birthday']));
+			$client->setBirthday(empty($clientInfo['client_birthday']) ? "1900-01-01" : Utilities::convertDateForDB($clientInfo['client_birthday']));
 			
 			$client->setFindings($this->generateClientFindingModels($client->getID(), $clientInfo['client_findings']));
 			$client->setConditions($this->generateClientConditionModels($client->getID(), $clientInfo['client_conditions']));

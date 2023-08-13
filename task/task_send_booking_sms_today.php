@@ -10,9 +10,9 @@
 	
 	$api_url = 'https://api.smsglobal.com/http-api.php?';
 	$param_action = 'sendsms';
-	$param_user = 'ie1aeqnx';
-	$param_password = 'HrmpUQHW';
-	$param_from = 'Lelux Thai';
+	$param_user = 'xxxx';
+	$param_password = 'xxxx';
+	$param_from = '61475929329'; // This is virtual number from SMS Global
 	$time_format = 'g.i A';
 	
 	$todayDate = new DateTime();
@@ -30,9 +30,19 @@
 			$bookingTel = str_replace('-', '', $bookings[$i]['booking_tel']);
 			$bookingTimeIn = new DateTime($bookings[$i]['booking_time_in']);
 			$bookingTimeOut = new DateTime($bookings[$i]['booking_time_out']);
-			$bookingTime = $bookingTimeIn->format($time_format).' to '.$bookingTimeOut->format($time_format);
 			
-			$smsText = "Dear Customer, Lelux Thai Massage, 323A Keilor rd, Essendon. Confirming your appointment today at {$bookingTime}. If you can't make it, please call 03 9043 9742. Thanks";
+			//$bookingTime = $bookingTimeIn->format($time_format).' to '.$bookingTimeOut->format($time_format);
+			$dateTimeObject1 = date_create($bookings[$i]['booking_time_in']);
+            $dateTimeObject2 = date_create($bookings[$i]['booking_time_out']); 
+            $difference = date_diff($dateTimeObject1, $dateTimeObject2);
+            
+            $minutes = $difference->days * 24 * 60;
+            $minutes += $difference->h * 60;
+            $minutes += $difference->i;
+            
+			$bookingTime = $bookingTimeIn->format($time_format).' ('.$minutes.' Min)';
+			
+			$smsText = "Lelux Thai Massage, 323A Keilor rd, Essendon. Confirmed your booking today at {$bookingTime}. If you can't make it, please reply to this or call 0390439742.";
 			
 			$http_curl = curl_init();
 			$http_body = [
@@ -42,6 +52,7 @@
 					'from' => $param_from,
 					'to' => $bookingTel,
 					'text' => $smsText,
+					'apireply' => '1'
 			];
 			$http_payload = http_build_query($http_body);
 			$http_url = $api_url.$http_payload;

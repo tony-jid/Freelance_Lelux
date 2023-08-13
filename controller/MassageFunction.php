@@ -168,10 +168,30 @@
 		{
 			$config = new Config();
 			$comRate = $config->getCommissionRate($date);
+			$stdCom = $minutes * $comRate;
 			
-			Utilities::logDebug('MassageFunction.getExtraCommission() | Standard Commission: '.($minutes * $comRate));
+			// 1/1/2022 - adding extra $ into standard commission
+			/*if ($minutes <= 15) {
+        	    // nothing
+        	} else if ($minutes <= 30) {
+        	    $stdCom += 2.5;
+        	} else if ($minutes <= 45) {
+        	    $stdCom += 3.75;
+        	} else if ($minutes <= 75) {
+        	    $stdCom += 6.25;
+        	} else if ($minutes <= 90) {
+        	    $stdCom += 7.5;
+        	} else {
+        	    $stdCom += 5;
+        	}*/
+        	
+        	// 24/1/2022
+        	$extraCom = floor($minutes / 15) * 1.25;
+        	$stdCom += $extraCom;
 			
-			return $minutes * $comRate;
+			Utilities::logDebug('MassageFunction.getExtraCommission() | Standard Commission: '.($stdCom));
+			
+			return $stdCom;
 		}
 		
 		private function getExtraCommission($date, $minutes, $isRequested, $stamp, $isPromo, $massageTypeCommission) {

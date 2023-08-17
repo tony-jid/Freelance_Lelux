@@ -3,6 +3,8 @@ var _clientInfo;
 var _reports;
 var _therapistOptions;
 var _providerOptions;
+var _muscleOptions;
+var _muscleDataList;
 
 var $btnEditClient;
 var $btnUpdateClient;
@@ -11,7 +13,7 @@ var $btnAddReport;
 var $btnPrintReport;
 var $btnPrintReceipt;
 
-var $ddlReportProvider, $ddlReportTherapist, $txtReportDate, $ddlReportHour, $txtReportDetail, $txtReportRecom;
+var $ddlReportProvider, $ddlReportTherapist, $txtReportDate, $ddlReportHour, $txtReportDetail, $txtReportRecom, $ddlMuscle;
 var $popupPrintReceipt, $txtReceiptDate, $txtReceiptValue, $ddlProvider;
 var $panelReportContainer;
 var prefixPanelItem = '#panelItem';
@@ -26,8 +28,9 @@ var prefixItemDetail = '#txtItemDetail';
 var prefixItemRecom = '#txtItemRecom';
 var prefixItemUpdateUser = '#lblItemUpdateUser';
 var prefixItemUpdateDatetime = '#lblItemUpdateDatetime';
+var prefixItemMuscle = '#ddlItemMuscle';
 
-var panelItemTemplate = "<div id=\"panelItem{0}\" class=\"panel panel-warning\"> <div class=\"panel-heading\"> <div class=\"row\"> <div class=\"col-sm-6\"> <div class=\"panel-title\"> <b>Report on</b> <span id=\"lblItemDate{0}\">{2}</span> </div> </div> <div class=\"col-sm-6 text-right\"> <button type=\"button\" id=\"btnEditItem{0}\" class=\"btn btn-info btn-xs\" name=\"{0}\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span> Edit</button> <button type=\"button\" id=\"btnDeleteItem{0}\" class=\"btn btn-danger btn-xs\" name=\"{0}\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>Delete</button> <button type=\"button\" id=\"btnUpdateItem{0}\" class=\"btn btn-warning btn-xs\" name=\"{1}\"><span class=\"glyphicon glyphicon-floppy-save\" aria-hidden=\"true\"></span> Update</button> <button type=\"button\" id=\"btnCancelItem{0}\" class=\"btn btn-default btn-xs\" name=\"{1}\">Cancel</button> </div></div> </div> <div class=\"panel-body\"> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Therapist</label><div class=\"col-xs-8 col-sm-5\"><select id=\"ddlItemProvider{0}\" class=\"form-control\" disabled>{10}</select></div><label class=\"col-xs-4 col-sm-1 control-label\">Hours</label><div class=\"col-xs-8 col-sm-3\"> <select id=\"ddlItemHour{0}\" class=\"form-control\" disabled> <option value=\"30\">30 Min</option> <option value=\"45\">45 Min</option> <option value=\"60\" selected>1 Hr</option> <option value=\"75\">1 Hr 15 Min</option> <option value=\"90\">1 Hr 30 Min</option> <option value=\"105\">1 Hr 45 Min</option> <option value=\"120\">2 Hr</option> <option value=\"135\">2 Hr 15 Min</option> <option value=\"150\">2 Hr 30 Min</option> <option value=\"165\">2 Hr 45 Min</option> <option value=\"180\">3 Hr</option> <option value=\"195\">3 Hr 15 Min</option> <option value=\"210\">3 Hr 30 Min</option> <option value=\"225\">3 Hr 45 Min</option> <option value=\"240\">4 Hr</option> </select> </div> </div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Remark</label> <div class=\"col-xs-8 col-sm-3\"> <select id=\"ddlItemTherapist{0}\" class=\"form-control\" disabled> {9} </select> </div></div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Massage Details</label> <div class=\"col-xs-8 col-sm-9\"> <textarea id=\"txtItemDetail{0}\" rows=\"2\" class=\"form-control\" readonly>{3}</textarea> </div> </div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Recommendations</label> <div class=\"col-xs-8 col-sm-9\"> <textarea id=\"txtItemRecom{0}\" rows=\"2\" class=\"form-control\" readonly>{4}</textarea> </div> </div> </div> <div class=\"panel-footer hidden\"> <small> <b>Created by:</b> <span id=\"lblItemCreateUser{0}\">{5}</span> <b>Created on:</b> <span id=\"lblItemCreateDatetime{0}\">{6}</span> <b>Updated by:</b> <span id=\"lblItemUpdateUser{0}\">{7}</span> <b>Updated on:</b> <span id=\"lblItemUpdateDatetime{0}\">{8}</span> </small> </div> </div>";
+var panelItemTemplate = "<div id=\"panelItem{0}\" class=\"panel panel-warning\"> <div class=\"panel-heading\"> <div class=\"row\"> <div class=\"col-sm-6\"> <div class=\"panel-title\"> <b>Report on</b> <span id=\"lblItemDate{0}\">{2}</span> </div> </div> <div class=\"col-sm-6 text-right\"> <button type=\"button\" id=\"btnEditItem{0}\" class=\"btn btn-info btn-xs\" name=\"{0}\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span> Edit</button> <button type=\"button\" id=\"btnDeleteItem{0}\" class=\"btn btn-danger btn-xs\" name=\"{0}\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>Delete</button> <button type=\"button\" id=\"btnUpdateItem{0}\" class=\"btn btn-warning btn-xs\" name=\"{1}\"><span class=\"glyphicon glyphicon-floppy-save\" aria-hidden=\"true\"></span> Update</button> <button type=\"button\" id=\"btnCancelItem{0}\" class=\"btn btn-default btn-xs\" name=\"{1}\">Cancel</button> </div></div> </div> <div class=\"panel-body\"> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Therapist</label><div class=\"col-xs-8 col-sm-5\"><select id=\"ddlItemProvider{0}\" class=\"form-control\" disabled>{10}</select></div><label class=\"col-xs-4 col-sm-1 control-label\">Hours</label><div class=\"col-xs-8 col-sm-3\"> <select id=\"ddlItemHour{0}\" class=\"form-control\" disabled> <option value=\"30\">30 Min</option> <option value=\"45\">45 Min</option> <option value=\"60\" selected>1 Hr</option> <option value=\"75\">1 Hr 15 Min</option> <option value=\"90\">1 Hr 30 Min</option> <option value=\"105\">1 Hr 45 Min</option> <option value=\"120\">2 Hr</option> <option value=\"135\">2 Hr 15 Min</option> <option value=\"150\">2 Hr 30 Min</option> <option value=\"165\">2 Hr 45 Min</option> <option value=\"180\">3 Hr</option> <option value=\"195\">3 Hr 15 Min</option> <option value=\"210\">3 Hr 30 Min</option> <option value=\"225\">3 Hr 45 Min</option> <option value=\"240\">4 Hr</option> </select> </div> </div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Remark</label> <div class=\"col-xs-8 col-sm-3\"> <select id=\"ddlItemTherapist{0}\" class=\"form-control\" disabled> {9} </select> </div></div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Muscle Treatment</label> <div class=\"col-xs-8 col-sm-9\"> <select id=\"ddlItemMuscle{0}\" class=\"form-control\" multiple disabled> {11} </select> </div> </div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Massage Details</label> <div class=\"col-xs-8 col-sm-9\"> <textarea id=\"txtItemDetail{0}\" rows=\"2\" class=\"form-control\" readonly>{3}</textarea> </div> </div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Recommendations</label> <div class=\"col-xs-8 col-sm-9\"> <textarea id=\"txtItemRecom{0}\" rows=\"2\" class=\"form-control\" readonly>{4}</textarea> </div> </div> </div> <div class=\"panel-footer hidden\"> <small> <b>Created by:</b> <span id=\"lblItemCreateUser{0}\">{5}</span> <b>Created on:</b> <span id=\"lblItemCreateDatetime{0}\">{6}</span> <b>Updated by:</b> <span id=\"lblItemUpdateUser{0}\">{7}</span> <b>Updated on:</b> <span id=\"lblItemUpdateDatetime{0}\">{8}</span> </small> </div> </div>";
 
 function initPage()
 {
@@ -64,6 +67,7 @@ function initPage()
 		$ddlReportHour = $('#ddlReportHour');
 		$txtReportDetail = $('#txtReportDetail');
 		$txtReportRecom = $('#txtReportRecom');
+		$ddlMuscle = $('#ddlMuscle');
 		
 		$popupPrintReceipt = $('#popupPrintReceipt');
 		$txtReceiptDate = $('#txtReceiptDate');
@@ -77,6 +81,7 @@ function initPage()
 		$txtReceiptValue.autoNumeric('init', { vMin: 0, vMax: 999, aSign: '$' });
 		
 		initProviders();
+		initMuscles();
 		
 		$btnEditClient.click(function(){
 			setEditMode();
@@ -462,11 +467,13 @@ function clearReportInputs()
 	$ddlReportHour.val('60');
 	$txtReportDetail.val('');
 	$txtReportRecom.val('');
+	setSelectpickerValues($ddlMuscle, []);
 }
 
 function addReport()
 {
 	reportInfo = getReportInfo();
+	console.log("reportInfo", reportInfo);
 	main_request_ajax('client-boundary.php', 'ADD_CLIENT_REPORT', reportInfo, onAddReportDone);
 }
 
@@ -491,6 +498,7 @@ function getReportInfo()
 			report_hour: $ddlReportHour.val(),
 			report_detail: $txtReportDetail.val(),
 			report_recommendation: $txtReportRecom.val(),
+			report_muscle_treatment_ids: getSelectpickerValues($ddlMuscle)
 	};
 	
 	return reportInfo;
@@ -522,6 +530,8 @@ function onGetReportsDone(response)
 				providerList.push(deletedProviderOption);
 			}
 			
+			muscleList = _muscleOptions.slice(0); // duplicate the array to a new object
+			
 			$panelReportContainer.append(panelItemTemplate.format(
 					reportID,
 					i,
@@ -533,8 +543,11 @@ function onGetReportsDone(response)
 					_reports[i]['report_update_user'],
 					_reports[i]['report_update_datetime'],
 					therapistList,
-					providerList
+					providerList,
+					muscleList
 				));
+			
+			initSelectpicker($(prefixItemMuscle + reportID), false, false, "");
 			
 			setReportItemBtnEdit(reportID);
 			setReportItemBtnDelete(reportID);
@@ -545,6 +558,7 @@ function onGetReportsDone(response)
 			setReportItemProvider(reportID, _reports[i]['provider_id']);
 			setReportItemTherapist(reportID, _reports[i]['therapist_id']);
 			setReportItemHour(reportID, _reports[i]['report_hour']);
+			setReportItemMuscle(reportID, _reports[i]['report_muscle_treatment_ids']);
 		}
 	}
 	else {
@@ -601,7 +615,8 @@ function setReportItemBtnUpdate(reportID)
 			report_detail: getReportItemDetail(reportID),
 			report_recommendation: getReportItemRecom(reportID),
 			therapist_id: getReportItemTherapist(reportID),
-			provider_id: getReportItemProvider(reportID)
+			provider_id: getReportItemProvider(reportID),
+			report_muscle_treatment_ids: getReportItemMuscle(reportID)
 		};
 		
 		updateReportItem(reportItemInfo);
@@ -616,7 +631,7 @@ function updateReportItem(reportItemInfo)
 function onUpdateReportItem(response)
 {
 	reportItemInfo = response.result;
-	
+	console.log('reportItemInfo', reportItemInfo);
 	if (response.success) {
 		// If succeeded, update nwe values in cache [_report] at specific index
 		main_info_message(response.msg);
@@ -629,6 +644,7 @@ function onUpdateReportItem(response)
 		_reports[updatedReportItemIndex]['report_hour'] = reportItemInfo['report_hour'];
 		_reports[updatedReportItemIndex]['report_detail'] = reportItemInfo['report_detail'];
 		_reports[updatedReportItemIndex]['report_recommendation'] = reportItemInfo['report_recommendation'];
+		_reports[updatedReportItemIndex]['report_muscle_treatment_ids'] = reportItemInfo['report_muscle_treatment_ids'];
 		
 		setReportItemUpdateUser(updatedReportID, reportItemInfo['report_update_user']);
 		setReportItemUpdateDatetime(updatedReportID, reportItemInfo['report_update_datetime']);
@@ -662,6 +678,8 @@ function setReportItemViewMode(reportID)
 	$(prefixItemHour + reportID).prop('disabled', true);
 	$(prefixItemDetail + reportID).prop('readonly', true);
 	$(prefixItemRecom + reportID).prop('readonly', true);
+	$(prefixItemMuscle + reportID).prop('disabled', true);
+	$(prefixItemMuscle + reportID).selectpicker('refresh');
 }
 
 function setReportItemEditMode(reportID)
@@ -676,6 +694,8 @@ function setReportItemEditMode(reportID)
 	$(prefixItemHour + reportID).prop('disabled', '');
 	$(prefixItemDetail + reportID).prop('readonly', '');
 	$(prefixItemRecom + reportID).prop('readonly', '');
+	$(prefixItemMuscle + reportID).prop('disabled', false);
+	$(prefixItemMuscle + reportID).selectpicker('refresh');
 }
 
 function reverseReportItem(reportID, reportItemIndex)
@@ -685,6 +705,7 @@ function reverseReportItem(reportID, reportItemIndex)
 	setReportItemHour(reportID, _reports[reportItemIndex]['report_hour']);
 	setReportItemDetail(reportID, _reports[reportItemIndex]['report_detail']);
 	setReportItemRecom(reportID, _reports[reportItemIndex]['report_recommendation']);
+	setReportItemMuscle(reportID, _reports[reportItemIndex]['report_muscle_treatment_ids']);
 }
 
 function setReportItemProvider(reportID, providerID)
@@ -747,6 +768,16 @@ function setReportItemUpdateDatetime(reportID, datetime)
 	$(prefixItemUpdateDatetime + reportID).text(datetime);
 }
 
+function setReportItemMuscle(reportID, muscleIDs)
+{
+	setSelectpickerValues($(prefixItemMuscle + reportID), muscleIDs);
+}
+
+function getReportItemMuscle(reportID)
+{
+	return getSelectpickerValues($(prefixItemMuscle + reportID));
+}
+
 function validateReceiptDetails()
 {
 	if ($txtReceiptDate.inputmask("isComplete") && $txtReceiptDate.val().trim().length) {
@@ -807,13 +838,65 @@ function onInitProviders(response)
 	}
 }
 
+function initMuscles()
+{
+	main_request_ajax('../client/client-boundary.php', 'GET_MUSCLES', {}, onInitMuscles);
+}
 
+function onInitMuscles(response)
+{
+	if (response.success) {
+		_muscleOptions = [];
+		_muscleDataList = [];
+		const muscles = response.result;
+		
+		$ddlMuscle.empty();
+		$ddlMuscle.unbind('click');
+		
+		if(muscles.length) {
+			_muscleDataList = muscles;
+			$.each(muscles, function (i, muscle){
+				// ddl for adding report
+				//option = "<option value='" + muscle['muscle_id'] + "' data-subtext='" + muscle['muscle_image'] + "'>" + muscle['muscle_region_name'] + ' - ' + muscle['muscle_name'] + "</option>";
+				//option = "<option value='" + muscle['muscle_id'] + "' title='" + muscle['muscle_region_name'] + " - " + muscle['muscle_name'] + "' data-content='<div onmouseover=\"onMouseOverMuscleItem(event, " + muscle['muscle_id'] + ")\" onmouseleave=\"onMouseLeaveMuscleItem()\">" + muscle['muscle_region_name'] + " - " + muscle['muscle_name'] + "</div>'></option>";
+				option = "<option value='" + muscle['muscle_id'] + "' data-content='<div onmouseover=\"onMouseOverMuscleItem(event, " + muscle['muscle_id'] + ")\" onmouseleave=\"onMouseLeaveMuscleItem()\">" + muscle['muscle_region_name'] + " - " + muscle['muscle_name'] + "</div>'></option>";
+				$ddlMuscle.append(option);
+				
+				// options for editing report
+				_muscleOptions.push(option);
+			});
+			
+			initSelectpicker($ddlMuscle, false, false, "");
+		}
+	}
+}
 
+function onMouseOverMuscleItem(event, muscleID) {
+	const hoverMuscle = _muscleDataList.find(x => x.muscle_id == muscleID);
+	if (hoverMuscle) {
+		const imageEle = $('#img-muscle-hover');
+		if (imageEle) {
+			const fixedHeight = 400;
+			const screenHeight = window.screen.availHeight;
+			const cursorY = event.clientY;
+			
+			let imgLeft = event.clientX + 20;
+			let imgTop = event.clientY;
+			if (imgTop + fixedHeight > screenHeight) imgTop = screenHeight - fixedHeight;
+			
+			imageEle.attr("src", "../image/muscle/" + hoverMuscle.muscle_image);
+			imageEle.css("display", "block");
+			imageEle.css("position", "fixed");
+			imageEle.css("top", imgTop);
+			imageEle.css("left", imgLeft);
+			imageEle.css("z-index", "9999");
+		}
+	}
+}
 
-
-
-
-
-
-
-
+function onMouseLeaveMuscleItem() {
+	const imageEle = $('#img-muscle-hover');
+	if (imageEle) {
+		imageEle.css("display", "none");	
+	}
+}

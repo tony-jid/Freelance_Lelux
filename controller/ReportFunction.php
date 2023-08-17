@@ -58,7 +58,7 @@ header;
 			$clientFunction = new ClientFunction();
 			
 			$clientInfo = $clientFunction->getClientInfo($clientID)['result'];
-			$reportInfo = $clientFunction->getReports($clientID)['result'];
+			$reportInfo = $clientFunction->getReportsWithFullMuscleTreatments($clientID)['result'];
 			
 			if (!empty($clientInfo[CLIENT_EMER_CON_NAME]))
 				$clientInfo[CLIENT_EMER_CON_NAME] = $clientInfo[CLIENT_EMER_CON_NAME].' - ';
@@ -191,6 +191,20 @@ report;
 				$reportHtmlOutput .= $clientReportHeader;
 				
 				foreach ($reportInfo as $item) {
+				    $muscleTreatments = '';
+				    
+				    if (count($item['report_muscle_treatments'])) {
+				        $muscleItems = '';
+				        foreach ($item['report_muscle_treatments'] as $muscle) {
+				            //$muscleItems .= '<li>'.$muscle['muscle_region_name'].' - '.$muscle['muscle_name'].'</li>';
+				            if (count($muscleItems) > 0) $muscleItems .= '<br>';
+				            $muscleItems .= $muscle['muscle_region_name'].' - '.$muscle['muscle_name'];
+				        }
+				        
+				        //$muscleTreatments = '<ul>'.$muscleItems.'</ul>';
+				        $muscleTreatments = $muscleItems;
+				    }
+				    
 					$reportItem = <<<reportItem
 <table cellspacing="2" cellpadding="1" border="0">
 	<tbody>
@@ -202,12 +216,16 @@ report;
 			<td width="20%" class="caption">Therapist:</td>
 			<td width="20%" class="text">{$item["provider_name"]}</td>
 		</tr>
-		<tr>
-			<td width="19%" class="caption">Massage Details:</td>
-			<td width="71%" class="text">{$item["report_detail"]}</td>
+        <tr>
+			<td width="23%" class="caption">Muscle Treatment:</td>
+			<td width="70%" class="text">{$muscleTreatments}</td>
 		</tr>
 		<tr>
-			<td width="20%" class="caption">Recommendations:</td>
+			<td width="23%" class="caption">Massage Details:</td>
+			<td width="70%" class="text">{$item["report_detail"]}</td>
+		</tr>
+		<tr>
+			<td width="23%" class="caption">Recommendations:</td>
 			<td width="70%" class="text">{$item["report_recommendation"]}</td>
 		</tr>
 		<!--<tr>

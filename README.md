@@ -8,6 +8,8 @@ Massage Store Code Update for Deployment:
 - Report Config: tcpdf/config/tcpdf_config.php
 - Report Instance Config: controller/PDF.php
 
+Muscle Reference: https://www.meddean.luc.edu/lumen/meded/grossanatomy/dissector/mml/mmlregn.htm
+
 Deployment: 30 March 2016
 	*Note:	changing "log path"
 	Issue:	mysql - casting "report_hour * 60" to integer causes an error, so casting to decimal(0) instead

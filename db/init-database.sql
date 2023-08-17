@@ -705,6 +705,203 @@ INSERT INTO `therapist`(`therapist_id`, `therapist_name`, `therapist_guarantee`,
 (0, '--- Unknown ---', 0, 'Unknown', 'xxxunknownxxx', 0, '0000-00-00', 1),
 (1, 'Admin', 0, 'admin', 'MyAdmin@1', 9, '0000-00-00', 1);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `muscle_region`
+--
+
+DROP TABLE IF EXISTS `muscle_region`;
+CREATE TABLE `muscle_region` (
+  `muscle_region_id` int(11) NOT NULL,
+  `muscle_region_name` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Truncate table before insert `muscle_region`
+--
+
+TRUNCATE TABLE `muscle_region`;
+--
+-- Dumping data for table `muscle_region`
+--
+
+INSERT INTO `muscle_region` (`muscle_region_id`, `muscle_region_name`) VALUES
+(1, 'Back'),
+(2, 'Upper Limb'),
+(3, 'Lower Limb'),
+(4, 'Head'),
+(5, 'Neck');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `muscle`
+--
+
+DROP TABLE IF EXISTS `muscle`;
+CREATE TABLE `muscle` (
+  `muscle_id` int(11) NOT NULL,
+  `muscle_region_id` int(11) NOT NULL,
+  `muscle_name` varchar(200) NOT NULL,
+  `muscle_image` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Truncate table before insert `muscle`
+--
+
+TRUNCATE TABLE `muscle`;
+--
+-- Dumping data for table `muscle`
+--
+
+INSERT INTO `muscle` (`muscle_id`, `muscle_region_id`, `muscle_name`, `muscle_image`) VALUES
+(1, 1, 'Deltoid', 'back-delt.jpg'),
+(2, 1, 'Erector Spinae - Spinalis', 'back-spin.jpg'),
+(3, 1, 'Erector Spinae - Iliocostalis', 'back-ili.jpg'),
+(4, 1, 'Erector Spinae - Longissimus', 'back-long.jpg'),
+(5, 1, 'Infraspinatus', 'back-infs.jpg'),
+(6, 1, 'Interspinales', 'back-ints.jpg'),
+(7, 1, 'Intertransversarii', 'back-ints.jpg'),
+(8, 1, 'Latissimus Dorsi', 'back-lat.jpg'),
+(9, 1, 'Levator Scapulae', 'back-ls.jpg'),
+(11, 1, 'Obliquus Capitis Inferior', 'back-obci.jpg'),
+(12, 1, 'Obliquus Capitis Superior', 'back-obcs.jpg'),
+(13, 1, 'Rectus Capitus Posterior Major', 'back-rpmj.jpg'),
+(14, 1, 'Rectus Capitus Posterior Minor', 'back-rpmn.jpg'),
+(15, 1, 'Rhomboid Major', 'back-rhmj.jpg'),
+(16, 1, 'Rhomboid Minor', 'back-rhmn.jpg'),
+(17, 1, 'Serratus Posterior Inferior', 'back-spi.jpg'),
+(18, 1, 'Serratus Posterior Superior', 'back-sps.jpg'),
+(21, 1, 'Teres Major', 'back-tmj.jpg'),
+(22, 1, 'Teres Minor', 'back-tmn.jpg'),
+(23, 1, 'Transversospinalis - Multifidus', 'back-mult.jpg'),
+(24, 1, 'Transversospinalis - Rotatores', 'back-rota.jpg'),
+(25, 1, 'Transversospinalis - Semispinalis', 'back-ssps.jpg'),
+(26, 1, 'Trapezius', 'back-trap.jpg'),
+(27, 2, 'Abductor Digiti Minimi (hand)', 'uplimb-abdh.jpg'),
+(28, 2, 'Abductor Pollicis Brevis', 'uplimb-abpb.jpg'),
+(29, 2, 'Abductor Pollicis Longus', 'uplimb-abpl.jpg'),
+(30, 2, 'Adductor Pollicis', 'uplimb-adpo.jpg'),
+(31, 2, 'Anconeus', 'uplimb-anco.jpg'),
+(32, 2, 'Articularis Cubiti', 'uplimb-artc.jpg'),
+(33, 2, 'Biceps Brachii', 'uplimb-bb.jpg'),
+(34, 2, 'Brachialis', 'uplimb-brac.jpg'),
+(35, 2, 'Brachioradialis', 'uplimb-brds.jpg'),
+(36, 2, 'Coracobrachialis', 'uplimb-cora.jpg'),
+(37, 2, 'Extensor Carpi Radialis Brevis', 'uplimb-ecrb.jpg'),
+(38, 2, 'Extensor Carpi Radialis Longus', 'uplimb-ecrl.jpg'),
+(39, 2, 'Extensor Carpi Ulnaris', 'uplimb-ecu.jpg'),
+(40, 2, 'Extensor Digiti Minimi (hand)', 'uplimb-edm.jpg'),
+(41, 2, 'Extensor Digitorum (hand)', 'uplimb-edh.jpg'),
+(42, 2, 'Extensor Indicis', 'uplimb-exi.jpg'),
+(43, 2, 'Extensor Pollicis Brevis', 'uplimb-epb.jpg'),
+(44, 2, 'Extensor Pollicis Longus', 'uplimb-epl.jpg'),
+(45, 2, 'Flexor Carpi Radialis', 'uplimb-fcr.jpg'),
+(46, 2, 'Flexor Carpi Ulnaris', 'uplimb-fcu.jpg'),
+(47, 2, 'Flexor Digiti Minimi Brevis (hand)', 'uplimb-fdmh.jpg'),
+(48, 2, 'Flexor Digitorum Profundus', 'uplimb-fdp.jpg'),
+(49, 2, 'Flexor Digitorum Superficialis', 'uplimb-fds.jpg'),
+(50, 2, 'Flexor Pollicis Brevis', 'uplimb-fpb.jpg'),
+(51, 2, 'Flexor Pollicis Longus', 'uplimb-fpl.jpg'),
+(53, 2, 'Interossei - Dorsal (hand)', 'uplimb-dih.jpg'),
+(54, 2, 'Interossei - Palmar (hand)', 'uplimb-pih.jpg'),
+(55, 2, 'Lumbricals (hand)', 'uplimb-lumh.jpg'),
+(56, 2, 'Opponens Digiti Minimi (hand)', 'uplimb-odmh.jpg'),
+(57, 2, 'Opponens Pollicis', 'uplimb-op.jpg'),
+(58, 2, 'Palmaris Brevis', 'uplimb-pb.jpg'),
+(59, 2, 'Palmaris Longus', 'uplimb-pl.jpg'),
+(60, 2, 'Pronator Quadratus', 'uplimb-pq.jpg'),
+(61, 2, 'Pronator Teres', 'uplimb-prt.jpg'),
+(62, 2, 'Pectoralis Major', 'uplimb-pcmj.jpg'),
+(63, 2, 'Pectoralis Minor', 'uplimb-pcmn.jpg'),
+(64, 2, 'Subscapularis', 'uplimb-subs.jpg'),
+(65, 2, 'Supinator', 'uplimb-sup.jpg'),
+(66, 2, 'Supraspinatus', 'uplimb-sups.jpg'),
+(67, 2, 'Triceps', 'uplimb-tric.jpg'),
+(68, 3, 'Abductor Digiti Minimi (foot)', 'lowlimb-abddmf.jpg'),
+(69, 3, 'Abductor Hallucis', 'lowlimb-abhf.jpg'),
+(70, 3, 'Adductor Brevis', 'lowlimb-adbr.jpg'),
+(71, 3, 'Adductor Hallucis', 'lowlimb-adhf.jpg'),
+(72, 3, 'Adductor Longus', 'lowlimb-adlg.jpg'),
+(73, 3, 'Adductor Magnus', 'lowlimb-admg.jpg'),
+(74, 3, 'Articularis Genu', 'lowlimb-art.jpg'),
+(75, 3, 'Biceps Femoris', 'lowlimb-bfem.jpg'),
+(76, 3, 'Extensor Digitorum Brevis (foot)', 'lowlimb-edbf.jpg'),
+(77, 3, 'Extensor Digitorum Longus (foot)', 'lowlimb-exdl.jpg'),
+(78, 3, 'Extensor Hallucis Brevis', 'lowlimb-ehbf.jpg'),
+(79, 3, 'Extensor Hallucis Longus', 'lowlimb-exhl.jpg'),
+(80, 3, 'Flexor Digiti Minimi Brevis (foot)', 'lowlimb-fdmf.jpg'),
+(81, 3, 'Flexor Digitorum Brevis (foot)', 'lowlimb-fdbf.jpg'),
+(82, 3, 'Flexor Digitorum Longus', 'lowlimb-fdl.jpg'),
+(83, 3, 'Flexor Hallucis Brevis (foot)', 'lowlimb-fhbf.jpg'),
+(84, 3, 'Flexor Hallucis Longus', 'lowlimb-fhl.jpg'),
+(85, 3, 'Gastrocnemius', 'lowlimb-gast.jpg'),
+(86, 3, 'Gemellus Inferior', 'lowlimb-gemi.jpg'),
+(87, 3, 'Gemellus Superior', 'lowlimb-gems.jpg'),
+(88, 3, 'Gluteus Maximus', 'lowlimb-glmx.jpg'),
+(89, 3, 'Gluteus Medius', 'lowlimb-glmd.jpg'),
+(90, 3, 'Gluteus Minimus', 'lowlimb-glmn.jpg'),
+(91, 3, 'Gracilis', 'lowlimb-grac.jpg'),
+(92, 3, 'Iliacus', 'lowlimb-ilia.jpg'),
+(93, 3, 'Interossei - Dorsal (foot)', 'lowlimb-dif.jpg'),
+(94, 3, 'Interossei - Plantar (foot)', 'lowlimb-pif.jpg'),
+(95, 3, 'Lumbricals (foot)', 'lowlimb-lumf.jpg'),
+(96, 3, 'Obturator Externus', 'lowlimb-obex.jpg'),
+(97, 3, 'Obturator Internus', 'lowlimb-obi.jpg'),
+(98, 3, 'Pectineus', 'lowlimb-pect.jpg'),
+(99, 3, 'Peroneus Brevis', 'lowlimb-perb.jpg'),
+(100, 3, 'Peroneus Longus', 'lowlimb-perl.jpg'),
+(101, 3, 'Peroneus Tertius', 'lowlimb-pert.jpg'),
+(102, 3, 'Piriformis', 'lowlimb-pirf.jpg'),
+(103, 3, 'Plantaris', 'lowlimb-plnt.jpg'),
+(104, 3, 'Popliteus', 'lowlimb-pop.jpg'),
+(105, 3, 'Quadratus Femoris', 'lowlimb-qf.jpg'),
+(106, 3, 'Quadratus Plantae', 'lowlimb-qp.jpg'),
+(107, 3, 'Rectus Femoris', 'lowlimb-recf.jpg'),
+(108, 3, 'Sartorius', 'lowlimb-sart.jpg'),
+(109, 3, 'Semimembranosus', 'lowlimb-semm.jpg'),
+(110, 3, 'Semitendinosus', 'lowlimb-semt.jpg'),
+(111, 3, 'Soleus', 'lowlimb-sole.jpg'),
+(112, 3, 'Tensor Fasciae Lata', 'lowlimb-tfl.jpg'),
+(113, 3, 'Tibialis Anterior', 'lowlimb-tiba.jpg'),
+(114, 3, 'Tibialis Posterior', 'lowlimb-tibp.jpg'),
+(115, 3, 'Vastus Intermedius', 'lowlimb-vasi.jpg'),
+(116, 3, 'Vastus Lateralis', 'lowlimb-vasl.jpg'),
+(117, 3, 'Vastus Medialis', 'lowlimb-vasm.jpg'),
+(118, 3, 'Psoas Major', 'lowlimb-psmj.jpg'),
+(119, 3, 'Psoas Minor', 'lowlimb-psmn.jpg'),
+(120, 4, 'Auricularis', 'head-aur.jpg'),
+(121, 4, 'Masseter', 'head-mass.jpg'),
+(122, 4, 'Frontalis', 'head-fron.jpg'),
+(123, 4, 'Levator Anguli Oris', 'head-lao.jpg'),
+(124, 4, 'Levator Labii Auperioris', 'head-lls.jpg'),
+(125, 4, 'Orbicularis Oculi', 'head-ooc.jpg'),
+(126, 4, 'Orbicularis Oris', 'head-oor.jpg'),
+(127, 4, 'Temporalis', 'head-temp.jpg'),
+(128, 5, 'Splenius Capitis', 'neck-spca.jpg'),
+(129, 5, 'Splenius Cervicis', 'neck-spce.jpg'),
+(130, 5, 'Sternocleidomastoid', 'neck-scm.jpg'),
+(131, 5, 'Sternohyoid', 'neck-steh.jpg'),
+(132, 5, 'Sternothyroid', 'neck-sthr.jpg'),
+(133, 5, 'Stylohyoid', 'neck-styh.jpg'),
+(134, 5, 'Stylopharyngeus', 'neck-styp.jpg'),
+(135, 5, 'Thyrohyoid', 'neck-thyh.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `report_muscle_treatment`
+--
+
+DROP TABLE IF EXISTS `report_muscle_treatment`;
+CREATE TABLE `report_muscle_treatment` (
+  `report_muscle_treatment_id` int(11) NOT NULL,
+  `report_id` varchar(23) NOT NULL,
+  `muscle_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 --
 -- Indexes for dumped tables
 --
@@ -870,6 +1067,24 @@ ALTER TABLE `shift_type`
 --
 ALTER TABLE `therapist`
   ADD PRIMARY KEY (`therapist_id`);
+  
+--
+-- Indexes for table `muscle`
+--
+ALTER TABLE `muscle`
+  ADD PRIMARY KEY (`muscle_id`);
+
+--
+-- Indexes for table `muscle_region`
+--
+ALTER TABLE `muscle_region`
+  ADD PRIMARY KEY (`muscle_region_id`);
+
+--
+-- Indexes for table `report_muscle_treatment`
+--
+ALTER TABLE `report_muscle_treatment`
+  ADD PRIMARY KEY (`report_muscle_treatment_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -952,5 +1167,24 @@ ALTER TABLE `shift_type`
 --
 ALTER TABLE `therapist`
   MODIFY `therapist_id` smallint(6) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `muscle`
+--
+ALTER TABLE `muscle`
+  MODIFY `muscle_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
+
+--
+-- AUTO_INCREMENT for table `muscle_region`
+--
+ALTER TABLE `muscle_region`
+  MODIFY `muscle_region_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `report_muscle_treatment`
+--
+ALTER TABLE `report_muscle_treatment`
+  MODIFY `report_muscle_treatment_id` int(11) NOT NULL AUTO_INCREMENT;
+  
 COMMIT;
 

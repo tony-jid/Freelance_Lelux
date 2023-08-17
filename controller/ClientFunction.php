@@ -232,9 +232,15 @@
 			$afffectedRow = $this->_dataMapper->insertReport($reportInfo);
 			
 			if ($afffectedRow > 0)
+			{
+			    $this->_dataMapper->updateReportMuscleTreatments($reportInfo);
+			    
 				return Utilities::getResponseResult(true, 'The report has been added successfully.', $reportInfo);
+			}
 			else
+			{
 				return Utilities::getResponseResult(false, 'Adding new report has been failed!');
+			}
 		} // addClientReport
 		
 		public function getReports($clientID)
@@ -242,10 +248,56 @@
 			$reports = $this->_dataMapper->getReports($clientID);
 				
 			if (count($reports) > 0)
-				return Utilities::getResponseResult(true, '', $reports);
+			{
+			    for ($i = 0; $i < count($reports); $i++)
+			    {
+			        $reports[$i]['report_muscle_treatment_ids'] = [];
+			        
+			        $muscleTreatments = $this->_dataMapper->getMuscleTreatmentsByReport($reports[$i]['report_id']);
+			        if (count($muscleTreatments) > 0)
+			        {
+			            $muscleTreatmentIDs = [];
+			            for ($j = 0; $j < count($muscleTreatments); $j++)
+			            {
+			                $muscleTreatmentIDs[$j] = intval($muscleTreatments[$j]['muscle_id']);
+			            }
+			            
+			            $reports[$i]['report_muscle_treatment_ids'] = $muscleTreatmentIDs;
+			        }
+			    }
+			    
+			    return Utilities::getResponseResult(true, '', $reports);
+			}
 			else
+			{
 				return Utilities::getResponseResult(false, 'Client reports are not found!');
+			}
 		} // getReports
+		
+		public function getReportsWithFullMuscleTreatments($clientID)
+		{
+		    $reports = $this->_dataMapper->getReports($clientID);
+		    
+		    if (count($reports) > 0)
+		    {
+		        for ($i = 0; $i < count($reports); $i++)
+		        {
+		            $reports[$i]['report_muscle_treatments'] = [];
+		            
+		            $muscleTreatments = $this->_dataMapper->getMuscleTreatmentsByReport($reports[$i]['report_id']);
+		            if (count($muscleTreatments) > 0)
+		            {
+		                $reports[$i]['report_muscle_treatments'] = $muscleTreatments;
+		            }
+		        }
+		        
+		        return Utilities::getResponseResult(true, '', $reports);
+		    }
+		    else
+		    {
+		        return Utilities::getResponseResult(false, 'Client reports are not found!');
+		    }
+		} // getReportsWithFullMuscleTreatments
 		
 		public function updateReportItem($reportItemInfo)
 		{
@@ -261,6 +313,9 @@
 				$reportItemInfo['report_hour'] = $reportItemInfo['report_hour'] * 60.0;
 				$reportItemInfo['report_update_user'] = $therapist->getName();
 				$reportItemInfo['report_update_datetime'] = Utilities::convertDatetimeForDisplay($reportItemInfo['report_update_datetime']);
+				
+				$this->_dataMapper->updateReportMuscleTreatments($reportItemInfo);
+				
 				return Utilities::getResponseResult(true, 'Report information has been updated successfully.', $reportItemInfo);
 			}
 			else {
@@ -311,6 +366,22 @@
 				return Utilities::getResponseResult(false, 'No bookings found!');
 			}
 		} // getBookingHistory
+		
+		public function getMuscles()
+		{
+		    $result = $this->_dataMapper->getMuscles();
+		    $countResult = count($result);
+		    
+		    if ($countResult > 0)
+		    {
+		        $msg = 'The '.$countResult.' muscles are found';
+		        return Utilities::getResponseResult(true, $msg, $result);
+		    }
+		    else
+		    {
+		        return Utilities::getResponseResult(false, 'No muscles found!');
+		    }
+		} // getMuscles
 	}
 ?>
 

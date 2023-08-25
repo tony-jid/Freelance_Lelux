@@ -74,7 +74,7 @@ define ('PDF_HEADER_LOGO', 'logo/lelux180x140.png');
 /**
  * Header logo image width in user units.
  */
-define ('PDF_HEADER_LOGO_WIDTH', 25);
+define ('PDF_HEADER_LOGO_WIDTH', 30);
 
 /**
  * Cache directory for temporary files (full path).
@@ -99,17 +99,17 @@ define ('PDF_PAGE_ORIENTATION', 'P');
 /**
  * Document creator.
  */
-define ('PDF_CREATOR', 'MassageStore');
+define ('PDF_CREATOR', 'Knead The Knots Thai Theraputic');
 
 /**
  * Document author.
  */
-define ('PDF_AUTHOR', 'MassageStore');
+define ('PDF_AUTHOR', 'Knead The Knots Thai Theraputic');
 
 /**
  * Header title.
  */
-define ('PDF_HEADER_TITLE', 'MassageStore');
+define ('PDF_HEADER_TITLE', 'Knead The Knots Thai Theraputic');
 
 /**
  * Header description string.

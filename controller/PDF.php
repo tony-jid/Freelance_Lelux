@@ -16,8 +16,8 @@
 			// set document information
 			$this->_pdf->SetCreator(PDF_CREATOR);
 			$this->_pdf->SetAuthor(PDF_AUTHOR);
-			$this->_pdf->SetTitle('MassageStore');
-			$this->_pdf->SetSubject('MassageStore');
+			$this->_pdf->SetTitle('Knead The Knots Thai Theraputic');
+			$this->_pdf->SetSubject('Knead The Knots Thai Theraputic');
 			//$this->_pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 			
 			// set default header data

@@ -1,7 +1,14 @@
 # Freelance_Lelux
 
-Manual Changes:
-	1. changing "log path"
+Massage Store Code Update for Deployment:
+- Log path: Controller/Utilities.php
+- App Logo: image/lelux180x140.png, image/lelux.ico
+- Report Logo: tcpdf/logo/lelux180x140.png
+- Shop Config: config/shop-config.php
+- Report Config: tcpdf/config/tcpdf_config.php
+- Report Instance Config: controller/PDF.php
+
+Muscle Reference: https://www.meddean.luc.edu/lumen/meded/grossanatomy/dissector/mml/mmlregn.htm
 
 Deployment: 30 March 2016
 	*Note:	changing "log path"

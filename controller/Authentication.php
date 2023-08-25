@@ -173,6 +173,7 @@
 			
 			switch ($file) {
 				case "therapist-manage.php":
+				case "provider-manage.php":
 				case "client-contact.php":
 				case "request-amount.php":
 					if (Authentication::isAdmin())

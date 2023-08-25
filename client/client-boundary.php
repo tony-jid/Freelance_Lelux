@@ -71,6 +71,12 @@
 				
 					$result = $clientFunction->getBookingHistory($search);
 				}
+				else if ($mode == 'GET_MUSCLES') {
+				    //$search = $_POST['data'];
+				    Utilities::logInfo('Client-Boundary | GET_MUSCLES');
+				    
+				    $result = $clientFunction->getMuscles();
+				}
 				else {
 					throw new Exception('Mode not found');
 				}

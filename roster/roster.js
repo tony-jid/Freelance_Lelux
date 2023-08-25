@@ -132,10 +132,12 @@ function initTableColumns(days, permission) {
 								
 				if (_permission < PERMISSION_RECEPTION) {
 					$spanVal = '';
-					typeIndex = data - 1;
-					//if (typeIndex >= 0 && typeIndex <= 1 )
-					if (typeIndex >= 0)
-						$spanVal = _shiftTypes[typeIndex]['shift_type_name'];
+					shiftTypeId = data;
+					
+					// ***Edited by Tony, when 31 Jan 2019
+				    var shiftType = getSelectedShiftType(shiftTypeId);
+				    if (typeof(shiftType) !== "undefined")
+				        $spanVal = shiftType['shift_type_name'];
 					
 					return CONTROL_SPAN_SHIFT_TYPE.format(id, $spanVal);
 				}

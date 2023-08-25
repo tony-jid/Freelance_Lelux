@@ -3,7 +3,7 @@
 class DataAccess
 {
 	private $_conn_strings = array(
-		0 => array("server" => "localhost", "user" => "root", "password" => "", "db" => "lelux") // dev
+		0 => array("server" => "localhost", "user" => "root", "password" => "", "db" => "massagestore") // dev
 		, 1 => array("server" => "localhost", "user" => "leluxtha_sup1", "password" => "leluxsup1", "db" => "leluxtha_support") // production
 		, 2 => array("server" => "localhost", "user" => "id2726991_test1", "password" => "test1", "db" => "id2726991_massage") // portfolio
 	);

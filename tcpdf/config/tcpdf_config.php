@@ -99,17 +99,17 @@ define ('PDF_PAGE_ORIENTATION', 'P');
 /**
  * Document creator.
  */
-define ('PDF_CREATOR', 'Lelux');
+define ('PDF_CREATOR', 'MassageStore');
 
 /**
  * Document author.
  */
-define ('PDF_AUTHOR', 'Lelux');
+define ('PDF_AUTHOR', 'MassageStore');
 
 /**
  * Header title.
  */
-define ('PDF_HEADER_TITLE', 'Lelux Thai Massage');
+define ('PDF_HEADER_TITLE', 'MassageStore');
 
 /**
  * Header description string.

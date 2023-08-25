@@ -15,10 +15,11 @@
 	    <title>Client - Client reports</title>
 	    
 	    <?php require_once '../master-page/script-main.php';?>
+	    <?php require_once '../master-page/script-select.php';?>
 	    
 	    <script type="text/javascript" src="client-report.js?<?php echo time(); ?>"></script>
 	    <script type="text/javascript" src="client-variable.js?<?php echo time(); ?>"></script>
-	    
+	    	    
 	    <script type="text/javascript">
 	    	$(document).ready(function(){
 	    		initPage();
@@ -365,6 +366,14 @@
 							<select id="ddlReportTherapist" class="form-control">
 							</select>
 						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-4 col-sm-offset-2 col-sm-2 control-label">Muscle Treatment</label>
+						<div class="col-xs-8 col-sm-6">
+							<select id="ddlMuscle" class="form-control" multiple>
+							</select>
+						</div>
+						<img id="img-muscle-hover" style="display:none" src="" />
 					</div>
 					<div class="form-group">
 						<label class="col-xs-4 col-sm-offset-2 col-sm-2 control-label">Massage Details</label>

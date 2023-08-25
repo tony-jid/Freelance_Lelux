@@ -11,6 +11,7 @@ select.selectpicker {
 }
 .bootstrap-select {
   width: 220px \0;
+  height: auto !important;
   /*IE9 and below*/
 }
 .bootstrap-select > .dropdown-toggle {
@@ -104,6 +105,7 @@ select.selectpicker {
 .bootstrap-select.btn-group.disabled,
 .bootstrap-select.btn-group > .disabled {
   cursor: not-allowed;
+  background-color: #eee;
 }
 .bootstrap-select.btn-group.disabled:focus,
 .bootstrap-select.btn-group > .disabled:focus {
@@ -122,6 +124,9 @@ select.selectpicker {
   overflow: hidden;
   width: 100%;
   text-align: left;
+}
+.bootstrap-select.btn-group .dropdown-toggle .filter-option div:hover {
+  background-color: whitesmoke;
 }
 .bootstrap-select.btn-group .dropdown-toggle .caret {
   position: absolute;

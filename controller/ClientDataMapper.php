@@ -493,6 +493,64 @@ order by b.booking_name, b.booking_date";
 				throw $e;
 			}
 		}
+		
+		public function getMuscles()
+		{
+		    try {
+		        $sql_format = "select muscle.muscle_id, muscle.muscle_region_id, muscle_region.muscle_region_name, muscle.muscle_name, muscle.muscle_image
+						from muscle
+						join muscle_region on muscle.muscle_region_id = muscle_region.muscle_region_id";
+		        $sql = sprintf($sql_format);
+		        
+		        return $this->_dataAccess->select($sql);
+		    }
+		    catch(Exception $e) {
+		        throw $e;
+		    }
+		} // getMuscles
+		
+		public function updateReportMuscleTreatments($reportInfo)
+		{
+		    try {
+		        $reportId = $reportInfo['report_id'];
+		        
+		        $sql_delete = "DELETE FROM report_muscle_treatment WHERE report_id = '{$reportId}'";
+		        
+		        $this->_dataAccess->delete($sql_delete);
+		        
+		        $newReportTreatments = $reportInfo['report_muscle_treatment_ids'];
+		        if ($newReportTreatments != null)
+		        {
+		            foreach ($newReportTreatments as $muscleId)
+		            {
+		                $sql_insert = "INSERT INTO report_muscle_treatment (report_id, muscle_id) VALUES ('{$reportId}', {$muscleId})";
+		                $this->_dataAccess->insert($sql_insert);
+		            }
+		        }
+		        
+		        return 1;
+		    }
+		    catch(Exception $e) {
+		        throw $e;
+		    }
+		}
+		
+		public function getMuscleTreatmentsByReport($reportID)
+		{
+		    try
+		    {
+		        $sql = "select report_muscle_treatment.report_id, muscle.muscle_id, muscle.muscle_name, muscle.muscle_region_id, muscle_region.muscle_region_name
+						from report_muscle_treatment
+                        join muscle on muscle.muscle_id = report_muscle_treatment.muscle_id
+                        join muscle_region on muscle_region.muscle_region_id = muscle.muscle_region_id
+						where report_id = '{$reportID}'";
+		        
+		        return $this->_dataAccess->select($sql);
+		    }
+		    catch(Exception $e) {
+		        throw $e;
+		    }
+		}
 	}
 ?>
 

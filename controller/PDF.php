@@ -16,8 +16,8 @@
 			// set document information
 			$this->_pdf->SetCreator(PDF_CREATOR);
 			$this->_pdf->SetAuthor(PDF_AUTHOR);
-			$this->_pdf->SetTitle('Lelux');
-			$this->_pdf->SetSubject('Lelux');
+			$this->_pdf->SetTitle('MassageStore');
+			$this->_pdf->SetSubject('MassageStore');
 			//$this->_pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 			
 			// set default header data

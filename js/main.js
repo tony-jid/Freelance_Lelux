@@ -277,10 +277,12 @@ function setDatepickerInputValue(control, date) {
 	$(control).datepicker('setDate', date);
 }
 
-function initSelectpicker(control, selectAll) {
+function initSelectpicker(control, selectAll, showSctionsBox, multipleSeparator) {
     $(control).selectpicker({
-    	actionsBox: true
+    	actionsBox: showSctionsBox ?? true
     	, liveSearch: true
+    	, multipleSeparator: multipleSeparator ?? ','
+    	, size: 10
     });
     
     if (typeof(selectAll) === 'undefined')
@@ -296,6 +298,10 @@ function destroySelectpicker(control) {
 
 function getSelectpickerValues(control) {
 	return $(control).selectpicker('val');
+}
+
+function setSelectpickerValues(control, values) {
+	$(control).selectpicker('val', values);
 }
 
 function initTouchSpinInput(control, min, max, initVal, step) {

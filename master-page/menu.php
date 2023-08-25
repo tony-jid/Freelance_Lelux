@@ -28,19 +28,22 @@
         				<ul class="dropdown-menu">
             				<li><a href="../client/client-add.php">Add Client</a></li>
             				<li><a href="../client/client-search.php">Search Client</a></li>
-            				<li><a href="../client/client-booking-history.php">Booking History</a></li>
+            				<!--<li><a href="../client/client-booking-history.php">Booking History</a></li>-->
             			</ul>
         			</li>
-        			<li <?php if (isset($_GET['page'])) { if ($_GET['page'] == 'daily-record') { echo 'class="active"'; } }?>>
+        			<!--<li <?php if (isset($_GET['page'])) { if ($_GET['page'] == 'daily-record') { echo 'class="active"'; } }?>>
         				<a href="../daily-record/daily-record.php">Daily Records</a>
-        			</li>
+        			</li>-->
 	        		<?php } ?>
-        			<li <?php if (isset($_GET['page'])) { if ($_GET['page'] == 'roster') { echo 'class="active"'; } }?>>
+        			<!--<li <?php if (isset($_GET['page'])) { if ($_GET['page'] == 'roster') { echo 'class="active"'; } }?>>
         				<a href="../roster/roster.php">Roster</a>
-        			</li>
+        			</li>-->
         			<?php if (Authentication::isAdmin()) { ?>
         			<li <?php if (isset($_GET['page'])) { if ($_GET['page'] == 'therapist-manage') { echo 'class="active"'; } }?>>
-	        				<a href="../therapist/therapist-manage.php">Manage Therapist</a>
+	        				<a href="../therapist/therapist-manage.php">Therapist</a>
+	        		</li>
+					<li <?php if (isset($_GET['page'])) { if ($_GET['page'] == 'provider-manage') { echo 'class="active"'; } }?>>
+	        				<a href="../provider/provider-manage.php">Provider</a>
 	        		</li>
         			<?php } ?>
         			
@@ -49,7 +52,7 @@
         				<ul class="dropdown-menu">
         					<?php if (Authentication::isAdmin()) { ?>
             				<li><a href="../report/client-contact.php">Client Contacts</a></li>
-            				<li><a href="../report/request-amount.php">Request Amount</a></li>
+            				<!--<li><a href="../report/request-amount.php">Request Amount</a></li>-->
             				<?php } ?>
             				<?php if (Authentication::isAdmin() || Authentication::isManager() || Authentication::isReception()) { ?>
             				<li><a href="../report/hicap.php">HICAP</a></li>

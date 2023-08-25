@@ -287,6 +287,8 @@ function onInitConfigRequestDone(response)
 		
 		//alert(_minimumRequest);
 		//alert(_commissionRate + ' | ' + _requestConditions);
+		//console.log("_minimumRequest", _minimumRequest);
+		//console.log("_requestConditions", JSON.stringify(_requestConditions));
 		
 		calReqReward();
 		getRecords();
@@ -622,6 +624,26 @@ function calCommission()
 	minutes = $txtMinutes.val();
 	reward = getMoneyInputValue($txtReqReward);
 	commission = minutes * _commissionRate;
+	
+	
+	// 1/1/2022 - adding extra $ into standard commission
+	/*if (minutes <= 15) {
+	    // nothing
+	} else if (minutes <= 30) {
+	    commission += 2.5;
+	} else if (minutes <= 45) {
+	    commission += 3.75;
+	} else if (minutes <= 75) {
+	    commission += 5;
+	} else if (minutes <= 90) {
+	    commission += 7.5;
+	} else {
+	    commission += 5;
+	}*/
+	
+	// 24/1/2022
+	extraCom = Math.floor(minutes / 15) * 1.25;
+	commission += extraCom;
 
 	setMoneyInputValue($txtStdCommission, commission);
 	setMoneyInputValue($txtCommissionTotal, commission + reward);

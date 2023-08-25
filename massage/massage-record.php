@@ -103,7 +103,7 @@
 							    <input type="text" id="txtCash" class="form-control" value="0">
 						    </div>
 						</div>
-						<div class="col-xs-offset-4 col-xs-6 col-sm-2">
+						<div class="col-xs-offset-4 col-xs-6 col-sm-offset-0 col-sm-2">
 							<label class="checkbox-inline">
 								<input type="checkbox" id="cbPromotionPrice"> Promotion Price
 							</label>

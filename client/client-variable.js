@@ -98,6 +98,15 @@ var conditionElements = [
                          { id: '10', name: 'Contigious/Infectious Diseases', suffix: 'Disease' },
                          { id: '11', name: 'Pregnancy/Breastfeeding', suffix: 'Pregnancy' },
                          { id: '12', name: 'Sore Back', suffix: 'SoreBack' },
+                         { id: '13', name: 'Osteoarthritis', suffix: 'Osteo' },
+                         { id: '14', name: 'Diabetes', suffix: 'Diabetes' },
+                         { id: '15', name: 'Hernias', suffix: 'Hernias' },
+                         { id: '16', name: 'Injuries', suffix: 'Injuries' },
+                         { id: '17', name: 'Vericose Veins', suffix: 'VericoseVeins' },
+                         { id: '18', name: 'Strain/Sprain', suffix: 'StrainSprain' },
+                         { id: '19', name: 'Numbness', suffix: 'Numbness' },
+                         { id: '20', name: 'Herniated Discs', suffix: 'HerniatedDiscs' },
+                         { id: '21', name: 'Joint Injuries', suffix: 'JointInjuries' },
                          ];
 
 function initElementVariables()

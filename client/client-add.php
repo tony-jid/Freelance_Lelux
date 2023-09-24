@@ -109,6 +109,12 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label class="col-xs-4 col-sm-2 control-label">Date of Birth</label>
+						<div class="col-xs-8 col-sm-5">
+							<input type="text" id="txtBirthday" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
 						<label class="col-xs-4 col-sm-2 control-label">Address</label>
 						<div class="col-xs-8 col-sm-5">
 							<input type="text" id="txtAddress" class="form-control">
@@ -119,27 +125,36 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-xs-4 col-sm-2 control-label">Email</label>
-						<div class="col-xs-8 col-sm-5">
-							<input type="text" id="txtEmail" class="form-control">
-						</div>
-					</div>
-					<div class="form-group">
 						<label class="col-xs-4 col-sm-2 control-label">Contact No.</label>
 						<div class="col-xs-8 col-sm-5">
 							<input type="text" id="txtContactNo" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-xs-4 col-sm-2 control-label">Date of Birth</label>
-						<div class="col-xs-8 col-sm-5">
-							<input type="text" id="txtBirthday" class="form-control">
-						</div>
-					</div>
-					<div class="form-group">
 						<label class="col-xs-4 col-sm-2 control-label">Occupation</label>
 						<div class="col-xs-8 col-sm-5">
 							<input type="text" id="txtOccupation" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-4 col-sm-2 control-label">Email</label>
+						<div class="col-xs-8 col-sm-5">
+							<input type="text" id="txtEmail" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-2 control-label">Emergency Contact</label>
+						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-3">
+							<div class="input-group">
+								<span class="input-group-addon">Name</span>
+								<input type="text" id="txtEmerConName" class="form-control">
+							</div>
+						</div>
+						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-3">
+							<div class="input-group">
+								<span class="input-group-addon">Phone No.</span>
+								<input type="text" id="txtEmerConNo" class="form-control">
+							</div>
 						</div>
 					</div>
 					<div class="form-group checkbox-list">
@@ -183,14 +198,210 @@
 					</div>
 					-->
 					<div class="form-group">
-						<label class="col-xs-4 col-sm-2 control-label">Sports/Activities</label>
-						<div class="col-xs-8 col-sm-5">
-							<input type="text" id="txtSports" class="form-control">
+						<label class="col-xs-12 col-sm-2 control-label text-nowrap">Conditions Apply</label>
+						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-10 col-md-8">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbSoreBack" value="12"> Medications
+						    		</label>
+							    </span>
+							    <input type="text" id="txtSoreBack" class="form-control">
+						    </div><!-- /input-group -->
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-xs-12 col-sm-2 control-label text-nowrap">Conditions Apply</label>
+						<div class="col-xs-offset-2 col-xs-10 ol-sm-offset-2 col-sm-10 col-md-8">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbPregnancy" value="11"> Pregnancy / Breastfeeding
+						    		</label>
+							    </span>
+							    <input type="text" id="txtPregnancy" class="form-control">
+						    </div><!-- /input-group -->
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10 ol-sm-offset-2 col-sm-10 col-md-8">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbPain" value="6"> Chronic Pain
+						    		</label>
+							    </span>
+							    <input type="text" id="txtPain" class="form-control">
+						    </div><!-- /input-group -->
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10 ol-sm-offset-2 col-sm-10 col-md-8">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbInjuries" value="16"> Injuries
+						    		</label>
+							    </span>
+							    <input type="text" id="txtInjuries" class="form-control">
+						    </div><!-- /input-group -->
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10 ol-sm-offset-2 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbOsteo" value="13"> Osteoarthritis
+						    		</label>
+							    </span>
+							    <input type="text" id="txtOsteo" class="form-control">
+						    </div><!-- /input-group -->
+						</div>
 						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbAllergy" value="8"> Asthma
+						    		</label>
+							    </span>
+							    <input type="text" id="txtAllergy" class="form-control">
+						    </div><!-- /input-group -->
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10 ol-sm-offset-2 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbDiabetes" value="14"> Diabetes
+						    		</label>
+							    </span>
+							    <input type="text" id="txtDiabetes" class="form-control">
+						    </div><!-- /input-group -->
+						</div>
+						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbHernias" value="15"> Hernias
+						    		</label>
+							    </span>
+							    <input type="text" id="txtHernias" class="form-control">
+						    </div><!-- /input-group -->
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10 ol-sm-offset-2 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbVericoseVeins" value="17"> Vericose Veins
+						    		</label>
+							    </span>
+							    <input type="text" id="txtVericoseVeins" class="form-control">
+						    </div><!-- /input-group -->
+						</div>
+						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbCancer" value="2"> Cancer / Tumours
+						    		</label>
+							    </span>
+							    <input type="text" id="txtCancer" class="form-control">
+						    </div><!-- /input-group -->
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10 ol-sm-offset-2 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbBloodPressure" value="7"> High / Low Blood Pressure
+						    		</label>
+							    </span>
+							    <input type="text" id="txtBloodPressure" class="form-control">
+						    </div><!-- /input-group -->
+						</div>
+						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbBrokenBone" value="9"> Fracture / Dislocations
+						    		</label>
+							    </span>
+							    <input type="text" id="txtBrokenBone" class="form-control">
+						    </div><!-- /input-group -->
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10 ol-sm-offset-2 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbStrainSprain" value="18"> Strain / Sprain
+						    		</label>
+							    </span>
+							    <input type="text" id="txtStrainSprain" class="form-control">
+						    </div><!-- /input-group -->
+						</div>
+						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbHeadache" value="4"> Headache / Migraine
+						    		</label>
+							    </span>
+							    <input type="text" id="txtHeadache" class="form-control">
+						    </div><!-- /input-group -->
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10 ol-sm-offset-2 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbDisease" value="10"> Infactious Diseases
+						    		</label>
+							    </span>
+							    <input type="text" id="txtDisease" class="form-control">
+						    </div><!-- /input-group -->
+						</div>
+						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbNumbness" value="19"> Numbness / Tingling
+						    		</label>
+							    </span>
+							    <input type="text" id="txtNumbness" class="form-control">
+						    </div><!-- /input-group -->
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-2 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbHerniatedDiscs" value="20"> Herniated Discs
+						    		</label>
+							    </span>
+							    <input type="text" id="txtHerniatedDiscs" class="form-control">
+						    </div><!-- /input-group -->
+						</div>
+						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbJointInjuries" value="21"> Joint Injuries
+						    		</label>
+							    </span>
+							    <input type="text" id="txtJointInjuries" class="form-control">
+						    </div><!-- /input-group -->
+						</div>
+					</div>					
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10 ol-sm-offset-2 col-sm-5 col-md-4">
 							<div class="input-group">
 							    <span class="input-group-addon">
 							    	<label class="checkbox-inline" style="padding-top: 0;">
@@ -204,120 +415,10 @@
 							<div class="input-group">
 							    <span class="input-group-addon">
 							    	<label class="checkbox-inline" style="padding-top: 0;">
-							    		<input type="checkbox" id="cbCancer" value="2"> Cancer
-						    		</label>
-							    </span>
-							    <input type="text" id="txtCancer" class="form-control">
-						    </div><!-- /input-group -->
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-2 col-sm-5 col-md-4">
-							<div class="input-group">
-							    <span class="input-group-addon">
-							    	<label class="checkbox-inline" style="padding-top: 0;">
-							    		<input type="checkbox" id="cbIsomnia" value="3"> Isomnia
-						    		</label>
-							    </span>
-							    <input type="text" id="txtIsomnia" class="form-control">
-						    </div><!-- /input-group -->
-						</div>
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
-							<div class="input-group">
-							    <span class="input-group-addon">
-							    	<label class="checkbox-inline" style="padding-top: 0;">
-							    		<input type="checkbox" id="cbHeadache" value="4"> Headache
-						    		</label>
-							    </span>
-							    <input type="text" id="txtHeadache" class="form-control">
-						    </div><!-- /input-group -->
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-2 col-sm-5 col-md-4">
-							<div class="input-group">
-							    <span class="input-group-addon">
-							    	<label class="checkbox-inline" style="padding-top: 0;">
 							    		<input type="checkbox" id="cbHeartCon" value="5"> Heart Conditions
 						    		</label>
 							    </span>
 							    <input type="text" id="txtHeartCon" class="form-control">
-						    </div><!-- /input-group -->
-						</div>
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
-							<div class="input-group">
-							    <span class="input-group-addon">
-							    	<label class="checkbox-inline" style="padding-top: 0;">
-							    		<input type="checkbox" id="cbPain" value="6"> Pain/Stiffness
-						    		</label>
-							    </span>
-							    <input type="text" id="txtPain" class="form-control">
-						    </div><!-- /input-group -->
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-2 col-sm-5 col-md-4">
-							<div class="input-group">
-							    <span class="input-group-addon">
-							    	<label class="checkbox-inline" style="padding-top: 0;">
-							    		<input type="checkbox" id="cbBloodPressure" value="7"> High/Low Blood Pressure
-						    		</label>
-							    </span>
-							    <input type="text" id="txtBloodPressure" class="form-control">
-						    </div><!-- /input-group -->
-						</div>
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
-							<div class="input-group">
-							    <span class="input-group-addon">
-							    	<label class="checkbox-inline" style="padding-top: 0;">
-							    		<input type="checkbox" id="cbAllergy" value="8"> Allergies/Asthma
-						    		</label>
-							    </span>
-							    <input type="text" id="txtAllergy" class="form-control">
-						    </div><!-- /input-group -->
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-2 col-sm-5 col-md-4">
-							<div class="input-group">
-							    <span class="input-group-addon">
-							    	<label class="checkbox-inline" style="padding-top: 0;">
-							    		<input type="checkbox" id="cbBrokenBone" value="9"> Broken/Dislocated Bones
-						    		</label>
-							    </span>
-							    <input type="text" id="txtBrokenBone" class="form-control">
-						    </div><!-- /input-group -->
-						</div>
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
-							<div class="input-group">
-							    <span class="input-group-addon">
-							    	<label class="checkbox-inline" style="padding-top: 0;">
-							    		<input type="checkbox" id="cbDisease" value="10"> Contagious/Infectious Diseases
-						    		</label>
-							    </span>
-							    <input type="text" id="txtDisease" class="form-control">
-						    </div><!-- /input-group -->
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-xs-offset-2 col-xs-10 ol-sm-offset-2 col-sm-5 col-md-4">
-							<div class="input-group">
-							    <span class="input-group-addon">
-							    	<label class="checkbox-inline" style="padding-top: 0;">
-							    		<input type="checkbox" id="cbPregnancy" value="11"> Pregnancy/Breastfeeding
-						    		</label>
-							    </span>
-							    <input type="text" id="txtPregnancy" class="form-control">
-						    </div><!-- /input-group -->
-						</div>
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
-							<div class="input-group">
-							    <span class="input-group-addon">
-							    	<label class="checkbox-inline" style="padding-top: 0;">
-							    		<input type="checkbox" id="cbSoreBack" value="12"> Sore Back
-						    		</label>
-							    </span>
-							    <input type="text" id="txtSoreBack" class="form-control">
 						    </div><!-- /input-group -->
 						</div>
 					</div>
@@ -327,19 +428,10 @@
 							<input type="text" id="txtOtherCon" class="form-control">
 						</div>
 					</div>
-					<div class="form-group">
-						<label class="col-xs-12 col-sm-2 control-label">Emergency Contact</label>
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-3">
-							<div class="input-group">
-								<span class="input-group-addon">Name</span>
-								<input type="text" id="txtEmerConName" class="form-control">
-							</div>
-						</div>
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-3">
-							<div class="input-group">
-								<span class="input-group-addon">Phone No.</span>
-								<input type="text" id="txtEmerConNo" class="form-control">
-							</div>
+					<div class="form-group" style="display: none">
+						<label class="col-xs-4 col-sm-2 control-label">Sports/Activities</label>
+						<div class="col-xs-8 col-sm-5">
+							<input type="text" id="txtSports" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">

@@ -159,7 +159,16 @@ INSERT INTO `condition_type` (`condition_type_id`, `condition_type_name`, `condi
 (9, 'Broken/Dislocated Bones', 'BrokenBone'),
 (10, 'Contagious/Infactious Diseases', 'Disease'),
 (11, 'Pregnancy/Breastfeeding', 'Pregnancy'),
-(12, 'Sore Back', 'SoreBack');
+(12, 'Sore Back', 'SoreBack'),
+(13, 'Osteoarthritis', 'Osteo'),
+(14, 'Diabetes', 'Diabetes'),
+(15, 'Hernias', 'Hernias'),
+(16, 'Injuries', 'Injuries'),
+(17, 'Vericose Veins', 'VericoseVeins'),
+(18, 'Strain/Sprain', 'StrainSprain'),
+(19, 'Numbness', 'Numbness'),
+(20, 'Herniated Discs', 'HerniatedDiscs'),
+(21, 'Joint Injuries', 'JointInjuries');
 
 -- --------------------------------------------------------
 

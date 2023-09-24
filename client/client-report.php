@@ -84,6 +84,12 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label class="col-xs-4 col-sm-2 control-label">Date of Birth</label>
+						<div class="col-xs-8 col-sm-5">
+							<input type="text" id="txtBirthday" class="form-control" readonly="readonly">
+						</div>
+					</div>
+					<div class="form-group">
 						<label class="col-xs-4 col-sm-2 control-label">Address</label>
 						<div class="col-xs-8 col-sm-5">
 							<input type="text" id="txtAddress" class="form-control" readonly="readonly">
@@ -94,27 +100,36 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-xs-4 col-sm-2 control-label">Email</label>
-						<div class="col-xs-8 col-sm-5">
-							<input type="text" id="txtEmail" class="form-control" readonly="readonly">
-						</div>
-					</div>
-					<div class="form-group">
 						<label class="col-xs-4 col-sm-2 control-label">Contact No.</label>
 						<div class="col-xs-8 col-sm-5">
 							<input type="text" id="txtContactNo" class="form-control" readonly="readonly">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-xs-4 col-sm-2 control-label">Date of Birth</label>
-						<div class="col-xs-8 col-sm-5">
-							<input type="text" id="txtBirthday" class="form-control" readonly="readonly">
-						</div>
-					</div>
-					<div class="form-group">
 						<label class="col-xs-4 col-sm-2 control-label">Occupation</label>
 						<div class="col-xs-8 col-sm-5">
 							<input type="text" id="txtOccupation" class="form-control" readonly="readonly">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-4 col-sm-2 control-label">Email</label>
+						<div class="col-xs-8 col-sm-5">
+							<input type="text" id="txtEmail" class="form-control" readonly="readonly">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-2 control-label">Emergency Contact</label>
+						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-3">
+							<div class="input-group">
+								<span class="input-group-addon">Name</span>
+								<input type="text" id="txtEmerConName" class="form-control" readonly="readonly">
+							</div>
+						</div>
+						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-3">
+							<div class="input-group">
+								<span class="input-group-addon">Phone No.</span>
+								<input type="text" id="txtEmerConNo" class="form-control" readonly="readonly">
+							</div>
 						</div>
 					</div>
 					<div class="form-group checkbox-list">
@@ -142,12 +157,12 @@
 								<input type="checkbox" id="cbGiftVoucher" value="7" disabled> Gift Voucher 
 							</label>
 							<label class="col-xs-12 col-sm-6 checkbox-inline">
-								<input type="checkbox" id="cbReferred" value="8"> Referred by
+								<input type="checkbox" id="cbReferred" value="8" disabled> Referred by
 								<input type="text" id="txtReferred" readonly="readonly">
 							</label>						
 						</div>
 					</div>
-					<div class="form-group">
+					<div class="form-group" style="display:none;">
 						<label class="col-xs-4 col-sm-2 control-label">Sports/Activities</label>
 						<div class="col-xs-8 col-sm-5">
 							<input type="text" id="txtSports" class="form-control" readonly="readonly">
@@ -155,7 +170,209 @@
 					</div>
 					<div class="form-group">
 						<label class="col-xs-12 col-sm-2 control-label text-nowrap">Conditions Apply</label>
+						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-10 col-md-8">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbSoreBack" value="12" disabled> Medications
+						    		</label>
+							    </span>
+							    <input type="text" id="txtSoreBack" class="form-control" readonly="readonly">
+						    </div><!-- /input-group -->
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10 ol-sm-offset-2 col-sm-10 col-md-8">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbPregnancy" value="11" disabled> Pregnancy / Breastfeeding
+						    		</label>
+							    </span>
+							    <input type="text" id="txtPregnancy" class="form-control" readonly="readonly">
+						    </div><!-- /input-group -->
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10 ol-sm-offset-2 col-sm-10 col-md-8">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbPain" value="6" disabled> Chronic Pain
+						    		</label>
+							    </span>
+							    <input type="text" id="txtPain" class="form-control" readonly="readonly">
+						    </div><!-- /input-group -->
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10 ol-sm-offset-2 col-sm-10 col-md-8">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbInjuries" value="16" disabled> Injuries
+						    		</label>
+							    </span>
+							    <input type="text" id="txtInjuries" class="form-control" readonly="readonly">
+						    </div><!-- /input-group -->
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10 ol-sm-offset-2 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbOsteo" value="13" disabled> Osteoarthritis
+						    		</label>
+							    </span>
+							    <input type="text" id="txtOsteo" class="form-control" readonly="readonly">
+						    </div><!-- /input-group -->
+						</div>
 						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbAllergy" value="8" disabled> Asthma
+						    		</label>
+							    </span>
+							    <input type="text" id="txtAllergy" class="form-control" readonly="readonly">
+						    </div><!-- /input-group -->
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10 ol-sm-offset-2 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbDiabetes" value="14" disabled> Diabetes
+						    		</label>
+							    </span>
+							    <input type="text" id="txtDiabetes" class="form-control" readonly="readonly">
+						    </div><!-- /input-group -->
+						</div>
+						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbHernias" value="15" disabled> Hernias
+						    		</label>
+							    </span>
+							    <input type="text" id="txtHernias" class="form-control" readonly="readonly">
+						    </div><!-- /input-group -->
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10 ol-sm-offset-2 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbVericoseVeins" value="17" disabled> Vericose Veins
+						    		</label>
+							    </span>
+							    <input type="text" id="txtVericoseVeins" class="form-control" readonly="readonly">
+						    </div><!-- /input-group -->
+						</div>
+						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbCancer" value="2" disabled> Cancer / Tumours
+						    		</label>
+							    </span>
+							    <input type="text" id="txtCancer" class="form-control" readonly="readonly">
+						    </div><!-- /input-group -->
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10 ol-sm-offset-2 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbBloodPressure" value="7" disabled> High / Low Blood Pressure
+						    		</label>
+							    </span>
+							    <input type="text" id="txtBloodPressure" class="form-control" readonly="readonly">
+						    </div><!-- /input-group -->
+						</div>
+						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbBrokenBone" value="9" disabled> Fracture / Dislocations
+						    		</label>
+							    </span>
+							    <input type="text" id="txtBrokenBone" class="form-control" readonly="readonly">
+						    </div><!-- /input-group -->
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10 ol-sm-offset-2 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbStrainSprain" value="18" disabled> Strain / Sprain
+						    		</label>
+							    </span>
+							    <input type="text" id="txtStrainSprain" class="form-control" readonly="readonly">
+						    </div><!-- /input-group -->
+						</div>
+						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbHeadache" value="4" disabled> Headache / Migraine
+						    		</label>
+							    </span>
+							    <input type="text" id="txtHeadache" class="form-control" readonly="readonly">
+						    </div><!-- /input-group -->
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10 ol-sm-offset-2 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbDisease" value="10" disabled> Infactious Diseases
+						    		</label>
+							    </span>
+							    <input type="text" id="txtDisease" class="form-control" readonly="readonly">
+						    </div><!-- /input-group -->
+						</div>
+						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbNumbness" value="19" disabled> Numbness / Tingling
+						    		</label>
+							    </span>
+							    <input type="text" id="txtNumbness" class="form-control" readonly="readonly">
+						    </div><!-- /input-group -->
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-2 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbHerniatedDiscs" value="20" disabled> Herniated Discs
+						    		</label>
+							    </span>
+							    <input type="text" id="txtHerniatedDiscs" class="form-control" readonly="readonly">
+						    </div><!-- /input-group -->
+						</div>
+						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
+							<div class="input-group">
+							    <span class="input-group-addon">
+							    	<label class="checkbox-inline" style="padding-top: 0;">
+							    		<input type="checkbox" id="cbJointInjuries" value="21" disabled> Joint Injuries
+						    		</label>
+							    </span>
+							    <input type="text" id="txtJointInjuries" class="form-control" readonly="readonly">
+						    </div><!-- /input-group -->
+						</div>
+					</div>					
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10 ol-sm-offset-2 col-sm-5 col-md-4">
 							<div class="input-group">
 							    <span class="input-group-addon">
 							    	<label class="checkbox-inline" style="padding-top: 0;">
@@ -169,142 +386,17 @@
 							<div class="input-group">
 							    <span class="input-group-addon">
 							    	<label class="checkbox-inline" style="padding-top: 0;">
-							    		<input type="checkbox" id="cbCancer" value="2" disabled> Cancer
-						    		</label>
-							    </span>
-							    <input type="text" id="txtCancer" class="form-control" readonly="readonly">
-						    </div><!-- /input-group -->
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-2 col-sm-5 col-md-4">
-							<div class="input-group">
-							    <span class="input-group-addon">
-							    	<label class="checkbox-inline" style="padding-top: 0;">
-							    		<input type="checkbox" id="cbIsomnia" value="3" disabled> Isomnia
-						    		</label>
-							    </span>
-							    <input type="text" id="txtIsomnia" class="form-control" readonly="readonly">
-						    </div><!-- /input-group -->
-						</div>
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
-							<div class="input-group">
-							    <span class="input-group-addon">
-							    	<label class="checkbox-inline" style="padding-top: 0;">
-							    		<input type="checkbox" id="cbHeadache" value="4" disabled> Headache
-						    		</label>
-							    </span>
-							    <input type="text" id="txtHeadache" class="form-control" readonly="readonly">
-						    </div><!-- /input-group -->
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-2 col-sm-5 col-md-4">
-							<div class="input-group">
-							    <span class="input-group-addon">
-							    	<label class="checkbox-inline" style="padding-top: 0;">
 							    		<input type="checkbox" id="cbHeartCon" value="5" disabled> Heart Conditions
 						    		</label>
 							    </span>
 							    <input type="text" id="txtHeartCon" class="form-control" readonly="readonly">
 						    </div><!-- /input-group -->
 						</div>
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
-							<div class="input-group">
-							    <span class="input-group-addon">
-							    	<label class="checkbox-inline" style="padding-top: 0;">
-							    		<input type="checkbox" id="cbPain" value="6" disabled> Pain/Stiffness
-						    		</label>
-							    </span>
-							    <input type="text" id="txtPain" class="form-control" readonly="readonly">
-						    </div><!-- /input-group -->
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-2 col-sm-5 col-md-4">
-							<div class="input-group">
-							    <span class="input-group-addon">
-							    	<label class="checkbox-inline" style="padding-top: 0;">
-							    		<input type="checkbox" id="cbBloodPressure" value="7" disabled> High/Low Blood Pressure
-						    		</label>
-							    </span>
-							    <input type="text" id="txtBloodPressure" class="form-control" readonly="readonly">
-						    </div><!-- /input-group -->
-						</div>
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
-							<div class="input-group">
-							    <span class="input-group-addon">
-							    	<label class="checkbox-inline" style="padding-top: 0;">
-							    		<input type="checkbox" id="cbAllergy" value="8" disabled> Allergies/Asthma
-						    		</label>
-							    </span>
-							    <input type="text" id="txtAllergy" class="form-control" readonly="readonly">
-						    </div><!-- /input-group -->
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-2 col-sm-5 col-md-4">
-							<div class="input-group">
-							    <span class="input-group-addon">
-							    	<label class="checkbox-inline" style="padding-top: 0;">
-							    		<input type="checkbox" id="cbBrokenBone" value="9" disabled> Broken/Dislocated Bones
-						    		</label>
-							    </span>
-							    <input type="text" id="txtBrokenBone" class="form-control" readonly="readonly">
-						    </div><!-- /input-group -->
-						</div>
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
-							<div class="input-group">
-							    <span class="input-group-addon">
-							    	<label class="checkbox-inline" style="padding-top: 0;">
-							    		<input type="checkbox" id="cbDisease" value="10" disabled> Contagious/Infectious Diseases
-						    		</label>
-							    </span>
-							    <input type="text" id="txtDisease" class="form-control" readonly="readonly">
-						    </div><!-- /input-group -->
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-2 col-sm-5 col-md-4">
-							<div class="input-group">
-							    <span class="input-group-addon">
-							    	<label class="checkbox-inline" style="padding-top: 0;">
-							    		<input type="checkbox" id="cbPregnancy" value="11" disabled> Pregnancy/Breastfeeding
-						    		</label>
-							    </span>
-							    <input type="text" id="txtPregnancy" class="form-control" readonly="readonly">
-						    </div><!-- /input-group -->
-						</div>
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5 col-md-4">
-							<div class="input-group">
-							    <span class="input-group-addon">
-							    	<label class="checkbox-inline" style="padding-top: 0;">
-							    		<input type="checkbox" id="cbSoreBack" value="12" disabled> Sore Back
-						    		</label>
-							    </span>
-							    <input type="text" id="txtSoreBack" class="form-control" readonly="readonly">
-						    </div><!-- /input-group -->
-						</div>
-					</div>
+					</div>					
 					<div class="form-group">
 						<label class="col-xs-12 col-sm-2 control-label text-nowrap">Other Conditions</label>
 						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-5">
 							<input type="text" id="txtOtherCon" class="form-control" readonly="readonly">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-xs-12 col-sm-2 control-label">Emergency Contact</label>
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-3">
-							<div class="input-group">
-								<span class="input-group-addon">Name</span>
-								<input type="text" id="txtEmerConName" class="form-control" readonly="readonly">
-							</div>
-						</div>
-						<div class="col-xs-offset-2 col-xs-10 col-sm-offset-0 col-sm-3">
-							<div class="input-group">
-								<span class="input-group-addon">Phone No.</span>
-								<input type="text" id="txtEmerConNo" class="form-control" readonly="readonly">
-							</div>
 						</div>
 					</div>
 					<div class="form-group">
@@ -378,7 +470,7 @@
 					<div class="form-group">
 						<label class="col-xs-4 col-sm-offset-2 col-sm-2 control-label">Massage Details</label>
 						<div class="col-xs-8 col-sm-6">
-							<textarea id="txtReportDetail" rows="3" class="form-control"></textarea>
+							<textarea id="txtReportDetail" rows="6" class="form-control"></textarea>
 						</div>
 					</div>
 					<div class="form-group">

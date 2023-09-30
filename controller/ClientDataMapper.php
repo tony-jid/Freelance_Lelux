@@ -551,6 +551,100 @@ order by b.booking_name, b.booking_date";
 		        throw $e;
 		    }
 		}
+		
+		public function getReportTemplates()
+		{
+		    $sql = "
+					select report_template_id, report_template_name
+						, report_template_detail, report_template_recommendation
+						, t_create.therapist_name as report_template_create_user
+						, DATE_FORMAT(report_template_create_datetime, '%e/%m/%Y %T') as report_template_create_datetime
+						, t_update.therapist_name as report_template_update_user
+						, DATE_FORMAT(report_template_update_datetime, '%e/%m/%Y %T') as report_template_update_datetime
+					from report_template report
+					join therapist t_create on report.report_template_create_user = t_create.therapist_id
+					join therapist t_update on report.report_template_update_user = t_update.therapist_id
+					where report.report_template_void_user = 0
+					order by report.report_template_create_datetime desc";
+		    
+		    return $this->_dataAccess->select($sql);
+		} // getReportTemplates
+		
+		public function getReportTemplateMuscleTreatments($reportTemplateId)
+		{
+		    $sql = "select * from report_template_muscle_treatment WHERE report_template_id = {$reportTemplateId}";
+		    
+		    return $this->_dataAccess->select($sql);
+		} // getReportTemplateMuscleTreatments
+		
+		public function addReportTemplate($reportInfo)
+		{
+		    $sql = "insert into report_template (
+                        report_template_name,
+                        report_template_detail, report_template_recommendation,
+						report_template_create_user, report_template_create_datetime,
+						report_template_update_user, report_template_update_datetime
+					)
+					values (
+                        '{$reportInfo['report_template_name']}',
+						'{$reportInfo['report_template_detail']}', '{$reportInfo['report_template_recommendation']}',
+						'{$reportInfo['report_template_create_user']}', '{$reportInfo['report_template_create_datetime']}',
+						'{$reportInfo['report_template_update_user']}', '{$reportInfo['report_template_update_datetime']}'
+					)";
+		    
+		    return $this->_dataAccess->insertAndReturnNewId($sql);
+		} // insertReport
+		
+		public function updateReportTemplateMuscleTreatments($reportInfo)
+		{
+		    try {
+		        $reportTemplateId = $reportInfo['report_template_id'];
+		        
+		        $sql_delete = "DELETE FROM report_template_muscle_treatment WHERE report_template_id = {$reportTemplateId}";
+		        
+		        $this->_dataAccess->delete($sql_delete);
+		        
+		        $newReportTreatments = $reportInfo['report_template_muscle_treatment_ids'];
+		        if ($newReportTreatments != null)
+		        {
+		            foreach ($newReportTreatments as $muscleId)
+		            {
+		                $sql_insert = "INSERT INTO report_template_muscle_treatment (report_template_id, muscle_id) VALUES ({$reportTemplateId}, {$muscleId})";
+		                $this->_dataAccess->insert($sql_insert);
+		            }
+		        }
+		        
+		        return 1;
+		    }
+		    catch(Exception $e) {
+		        throw $e;
+		    }
+		}
+		
+		public function deleteReportTemplate($reportTemplateInfo)
+		{
+		    $sql = "
+update report_template 
+set report_template_void_user = '{$reportTemplateInfo['report_template_void_user']}'
+    , report_template_void_datetime = '{$reportTemplateInfo['report_template_void_datetime']}'
+where report_template_id = {$reportTemplateInfo['report_template_id']}";
+		    
+		    return $this->_dataAccess->update($sql);
+		} // deleteReportTemplate
+		
+		public function updateReportTemplate($reportTemplateInfo)
+		{
+		    $sql = "
+update report_template
+set 
+    report_template_detail = '{$reportTemplateInfo['report_template_detail']}'
+    , report_template_recommendation = '{$reportTemplateInfo['report_template_recommendation']}'
+    , report_template_update_user = '{$reportTemplateInfo['report_template_update_user']}'
+    , report_template_update_datetime = '{$reportTemplateInfo['report_template_update_datetime']}'
+where report_template_id = {$reportTemplateInfo['report_template_id']}";
+		    
+		    return $this->_dataAccess->update($sql);
+		}
 	}
 ?>
 

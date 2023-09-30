@@ -77,6 +77,30 @@
 				    
 				    $result = $clientFunction->getMuscles();
 				}
+				else if ($mode == 'ADD_CLIENT_REPORT_TEMPLATE') {
+				    $reportInfo = $_POST['data'];
+				    Utilities::logInfo('Client-Boundary | data[reportInfo]: '.var_export($reportInfo, true));
+				    
+				    $result = $clientFunction->addReportTemplate($reportInfo);
+				}
+				else if ($mode == 'GET_REPORT_TEMPLATES') {
+				    Utilities::logInfo('Client-Boundary | GET_REPORT_TEMPLATES');
+				    
+				    $result = $clientFunction->getReportTemplates();
+				}
+				else if ($mode == 'UPDATE_REPORT_TEMPLATE') {
+				    $reportTemplateInfo = $_POST['data'];
+				    Utilities::logInfo('Client-Boundary | UPDATE_REPORT_TEMPLATE | data[reportItemInfo]: '.var_export($reportTemplateInfo, true));
+				    
+				    $result = $clientFunction->updateReportTemplate($reportTemplateInfo);
+				}
+				else if ($mode == 'DELETE_REPORT_TEMPLATE') {
+				    $reportTemplateInfo = $_POST['data'];
+				    // Data consists of just "report_id"
+				    Utilities::logInfo('Client-Boundary | DELETE_REPORT_TEMPLATE | data[reportItemInfo]: '.var_export($reportTemplateInfo, true));
+				    
+				    $result = $clientFunction->deleteReportTemplate($reportTemplateInfo);
+				}
 				else {
 					throw new Exception('Mode not found');
 				}

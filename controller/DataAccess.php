@@ -127,6 +127,25 @@ class DataAccess
 			throw $e;
 		}
 	}
+	
+	public function insertAndReturnNewId($sql)
+	{
+	    try {
+	        Utilities::logDebug($sql);
+	        
+	        $this->openConnection();
+	        
+	        $result = mysqli_multi_query($this->_conn, $sql);
+	        
+	        $newInsertId = mysqli_insert_id($this->_conn);
+	        
+	        $this->closeConnection();
+	        
+	        return $newInsertId;
+	    } catch (Exception $e) {
+	        throw $e;
+	    }
+	}
 }
 
 ?>

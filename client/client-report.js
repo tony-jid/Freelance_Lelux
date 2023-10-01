@@ -5,6 +5,8 @@ var _therapistOptions;
 var _providerOptions;
 var _muscleOptions;
 var _muscleDataList;
+var _reportTemplates;
+var _reportTemplateOptions;
 
 var $btnEditClient;
 var $btnUpdateClient;
@@ -15,6 +17,7 @@ var $btnPrintReceipt;
 
 var $ddlReportProvider, $ddlReportTherapist, $txtReportDate, $ddlReportHour, $txtReportDetail, $txtReportRecom, $ddlMuscle;
 var $popupPrintReceipt, $txtReceiptDate, $txtReceiptValue, $ddlProvider;
+var $ddlReportTemplate;
 var $panelReportContainer;
 var prefixPanelItem = '#panelItem';
 var prefixBtnEditItem = '#btnEditItem';
@@ -68,6 +71,7 @@ function initPage()
 		$txtReportDetail = $('#txtReportDetail');
 		$txtReportRecom = $('#txtReportRecom');
 		$ddlMuscle = $('#ddlMuscle');
+		$ddlReportTemplate = $('#ddlReportTemplate');
 		
 		$popupPrintReceipt = $('#popupPrintReceipt');
 		$txtReceiptDate = $('#txtReceiptDate');
@@ -82,6 +86,7 @@ function initPage()
 		
 		initProviders();
 		initMuscles();
+		initReportTemplates();
 		
 		$btnEditClient.click(function(){
 			setEditMode();
@@ -157,6 +162,19 @@ function initPage()
 			{
 				main_open_child_window('../provider/provider.php', initProviders);
 				main_set_dropdown_index(this);
+			}
+		});
+		
+		$ddlReportTemplate.change(function(){
+			const selectedTemplateId = $(this).val();
+			if (selectedTemplateId > 0) {
+				const selectedTemplate = _reportTemplates.find(x => x.report_template_id == selectedTemplateId);				
+				prefillReport(selectedTemplate);
+				
+				// Resetting value to default
+				$(this).val('-1');
+			} else if (selectedTemplateId == 0) {
+				prefillReport(null);
 			}
 		});
 	}
@@ -473,7 +491,7 @@ function clearReportInputs()
 function addReport()
 {
 	reportInfo = getReportInfo();
-	console.log("reportInfo", reportInfo);
+	//console.log("reportInfo", reportInfo);
 	main_request_ajax('client-boundary.php', 'ADD_CLIENT_REPORT', reportInfo, onAddReportDone);
 }
 
@@ -631,7 +649,7 @@ function updateReportItem(reportItemInfo)
 function onUpdateReportItem(response)
 {
 	reportItemInfo = response.result;
-	console.log('reportItemInfo', reportItemInfo);
+	//console.log('reportItemInfo', reportItemInfo);
 	if (response.success) {
 		// If succeeded, update nwe values in cache [_report] at specific index
 		main_info_message(response.msg);
@@ -900,3 +918,44 @@ function onMouseLeaveMuscleItem() {
 		imageEle.css("display", "none");	
 	}
 }
+
+function initReportTemplates() {
+	main_request_ajax('client-boundary.php', 'GET_REPORT_TEMPLATES', {}, onInitReportTemplatesDone);
+}
+
+function onInitReportTemplatesDone(response) {
+	if (response.success) {
+		$ddlReportTemplate.empty();
+		
+		_reportTemplates = response.result;		
+		_reportTemplateOptions = [];
+		
+		let defaultOption = "<option value='-1'>--- Select template to prefill details below ---</option>";
+		_reportTemplateOptions.push(defaultOption);
+
+		$.each(_reportTemplates, function (i, reportTemplate){
+			option = "<option value='" + reportTemplate['report_template_id'] + "'>" + reportTemplate['report_template_name'] + "</option>";			
+			_reportTemplateOptions.push(option);
+		});
+		
+		$.each(_reportTemplateOptions, function (i, option){
+			$ddlReportTemplate.append(option);
+		});
+	}
+	else {
+		//main_alert_message(response.msg);
+	}
+}
+
+function prefillReport(selectReportTemplate) {
+	if (selectReportTemplate) {
+		$txtReportDetail.val(selectReportTemplate['report_template_detail']);
+		$txtReportRecom.val(selectReportTemplate['report_template_recommendation']);	
+		setSelectpickerValues($ddlMuscle, selectReportTemplate['report_template_muscle_treatment_ids']);
+	} else {
+		$txtReportDetail.val('');
+		$txtReportRecom.val('');
+		setSelectpickerValues($ddlMuscle, []);
+	}
+}
+

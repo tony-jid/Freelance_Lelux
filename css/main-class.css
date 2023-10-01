@@ -247,6 +247,11 @@
 	display: inline-block;
 }
 
+.btn-inline {
+	margin-left: 3px;
+	margin-right: 3px;
+}
+
 @media (min-width: 768px) {
 	.roster-selection-res-gutter {
 		padding: 0 15px;	

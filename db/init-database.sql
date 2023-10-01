@@ -1194,6 +1194,57 @@ ALTER TABLE `muscle_region`
 --
 ALTER TABLE `report_muscle_treatment`
   MODIFY `report_muscle_treatment_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Table structure for table `report_template`
+--
+
+CREATE TABLE `report_template` (
+  `report_template_id` int(11) NOT NULL,
+  `report_template_name` varchar(200) NOT NULL,
+  `report_template_detail` text NOT NULL,
+  `report_template_recommendation` text NOT NULL,
+  `report_template_create_datetime` datetime NOT NULL,
+  `report_template_create_user` tinyint(4) NOT NULL,
+  `report_template_update_datetime` datetime DEFAULT NULL,
+  `report_template_update_user` tinyint(4) NOT NULL DEFAULT 0,
+  `report_template_void_datetime` datetime DEFAULT NULL,
+  `report_template_void_user` tinyint(4) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Indexes for table `report_template`
+--
+ALTER TABLE `report_template`
+  ADD PRIMARY KEY (`report_template_id`);
+
+--
+-- AUTO_INCREMENT for table `report_template`
+--
+ALTER TABLE `report_template`
+  MODIFY `report_template_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Table structure for table `report_template_muscle_treatment`
+--
+
+CREATE TABLE `report_template_muscle_treatment` (
+  `report_template_muscle_treatment_id` int(11) NOT NULL,
+  `report_template_id` int(11) NOT NULL,
+  `muscle_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Indexes for table `report_template_muscle_treatment`
+--
+ALTER TABLE `report_template_muscle_treatment`
+  ADD PRIMARY KEY (`report_template_muscle_treatment_id`);
+
+--
+-- AUTO_INCREMENT for table `report_template_muscle_treatment`
+--
+ALTER TABLE `report_template_muscle_treatment`
+  MODIFY `report_template_muscle_treatment_id` int(11) NOT NULL AUTO_INCREMENT;
   
 COMMIT;
 

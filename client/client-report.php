@@ -454,8 +454,15 @@
 					</div>
 					<div class="form-group">
 						<label class="col-xs-4 col-sm-offset-2 col-sm-2 control-label">Remark</label>
-						<div class="col-xs-8 col-sm-2">
+						<div class="col-xs-8 col-sm-3">
 							<select id="ddlReportTherapist" class="form-control">
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-4 col-sm-offset-2 col-sm-2 control-label">Template</label>
+						<div class="col-xs-8 col-sm-6">
+							<select id="ddlReportTemplate" class="form-control">
 							</select>
 						</div>
 					</div>

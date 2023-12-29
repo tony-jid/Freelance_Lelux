@@ -182,6 +182,7 @@
 				case "client-add.php":
 				case "client-search.php":
 				case "client-report.php":
+				case "client-report-template.php":
 				case "client-booking-history.php":
 				case "daily-record.php":
 				case "hicap.php":

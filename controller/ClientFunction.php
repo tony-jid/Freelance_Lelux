@@ -382,6 +382,94 @@
 		        return Utilities::getResponseResult(false, 'No muscles found!');
 		    }
 		} // getMuscles
+		
+		public function addReportTemplate($reportInfo)
+		{
+		    $therapist = Authentication::getUser();
+		    
+		    $reportInfo['report_template_create_user'] = $therapist->getID();
+		    $reportInfo['report_template_create_datetime'] = Utilities::getDateTimeNowForDB();
+		    $reportInfo['report_template_update_user'] = $therapist->getID();
+		    $reportInfo['report_template_update_datetime'] = Utilities::getDateTimeNowForDB();
+		    
+		    $newInsertId = $this->_dataMapper->addReportTemplate($reportInfo);
+		    
+		    if ($newInsertId > 0)
+		    {
+		        $reportInfo['report_template_id'] = $newInsertId;
+		        $this->_dataMapper->updateReportTemplateMuscleTreatments($reportInfo);
+		        
+		        return Utilities::getResponseResult(true, 'The report template has been added successfully.', $reportInfo);
+		    }
+		    else
+		    {
+		        return Utilities::getResponseResult(false, 'Adding new report template has been failed!');
+		    }
+		} // addReportTemplate
+		
+		public function getReportTemplates()
+		{
+		    $result = $this->_dataMapper->getReportTemplates();
+		    
+		    for ($i = 0; $i < count($result); $i++) {
+		        $result[$i]['report_muscle_treatment_ids'] = [];		        
+		        $muscleTreatments = $this->_dataMapper->getReportTemplateMuscleTreatments($result[$i]['report_template_id']);
+		        
+		        $muscleTreatmentIDs = [];
+		        foreach ($muscleTreatments as $treatment) {
+		            array_push($muscleTreatmentIDs, intval($treatment['muscle_id']));
+		        }
+		        
+		        //$each['report_template_muscle_treatment_ids'] = $muscleTreatmentIDs;
+		        $result[$i]['report_template_muscle_treatment_ids'] = $muscleTreatmentIDs;
+		    }
+		    
+		    if (count($result) > 0) {
+		        return Utilities::getResponseResult(true, '', $result);
+		    }
+		    else {
+		        Utilities::logInfo("There is no report template data in the system.");
+		        return Utilities::getResponseResult(true, 'There is no report template data in the system!');
+		    }
+		} // getReportTemplates
+		
+		public function deleteReportTemplate($reportTemplateInfo)
+		{
+		    $user = Authentication::getUser();
+		    
+		    $reportTemplateInfo['report_template_void_user'] = $user->getID();
+		    $reportTemplateInfo['report_template_void_datetime'] = Utilities::getDateTimeNowForDB();
+		    
+		    $affectedRow = $this->_dataMapper->deleteReportTemplate($reportTemplateInfo);
+		    
+		    if ($affectedRow > 0)
+		        return Utilities::getResponseResult(true, 'The report template has been deleted successfully.');
+	        else
+	            return Utilities::getResponseResult(false, 'Deleting the report template has been failed!');
+		}
+		
+		public function updateReportTemplate($reportTemplateInfo)
+		{
+		    $user = Authentication::getUser();
+		    
+		    $reportTemplateInfo['report_template_update_user'] = $user->getID();
+		    $reportTemplateInfo['report_template_update_datetime'] = Utilities::getDateTimeNowForDB();
+		    
+		    $affectedRow = $this->_dataMapper->updateReportTemplate($reportTemplateInfo);
+		    
+		    if ($affectedRow > 0) {
+		        $affectedRow = $this->_dataMapper->updateReportTemplateMuscleTreatments($reportTemplateInfo);
+		        
+		        if ($affectedRow > 0) {
+		            return Utilities::getResponseResult(true, 'The report template has been updated successfully.', $reportTemplateInfo);
+		        } else {
+		            return Utilities::getResponseResult(true, 'Updating the muscle treatment of report template has been failed!', $reportTemplateInfo);
+		        }
+		    }
+		    else {
+		        return Utilities::getResponseResult(false, 'Updating the report template has been failed!', $reportTemplateInfo);
+		    }
+		}
 	}
 ?>
 

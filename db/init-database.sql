@@ -1094,7 +1094,7 @@ ALTER TABLE `report_muscle_treatment`
 -- AUTO_INCREMENT for table `booking_item`
 --
 ALTER TABLE `booking_item`
-  MODIFY `booking_item_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `booking_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100000;
 
 --
 -- AUTO_INCREMENT for table `booking_sms`

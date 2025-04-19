@@ -19,6 +19,7 @@ var $ddlReportProvider, $ddlReportTherapist, $txtReportDate, $ddlReportHour, $tx
 var $popupPrintReceipt, $txtReceiptDate, $txtReceiptValue, $ddlProvider;
 var $ddlReportTemplate;
 var $panelReportContainer;
+
 var prefixPanelItem = '#panelItem';
 var prefixBtnEditItem = '#btnEditItem';
 var prefixBtnDeleteItem = '#btnDeleteItem';
@@ -32,8 +33,10 @@ var prefixItemRecom = '#txtItemRecom';
 var prefixItemUpdateUser = '#lblItemUpdateUser';
 var prefixItemUpdateDatetime = '#lblItemUpdateDatetime';
 var prefixItemMuscle = '#ddlItemMuscle';
+var prefixItemReportTemplate = '#ddlItemReportTemplate';
+var prefixItemReportTemplate_NoSelector = 'ddlItemReportTemplate';
 
-var panelItemTemplate = "<div id=\"panelItem{0}\" class=\"panel panel-warning\"> <div class=\"panel-heading\"> <div class=\"row\"> <div class=\"col-sm-6\"> <div class=\"panel-title\"> <b>Report on</b> <span id=\"lblItemDate{0}\">{2}</span> </div> </div> <div class=\"col-sm-6 text-right\"> <button type=\"button\" id=\"btnEditItem{0}\" class=\"btn btn-info btn-xs\" name=\"{0}\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span> Edit</button> <button type=\"button\" id=\"btnDeleteItem{0}\" class=\"btn btn-danger btn-xs\" name=\"{0}\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>Delete</button> <button type=\"button\" id=\"btnUpdateItem{0}\" class=\"btn btn-warning btn-xs\" name=\"{1}\"><span class=\"glyphicon glyphicon-floppy-save\" aria-hidden=\"true\"></span> Update</button> <button type=\"button\" id=\"btnCancelItem{0}\" class=\"btn btn-default btn-xs\" name=\"{1}\">Cancel</button> </div></div> </div> <div class=\"panel-body\"> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Therapist</label><div class=\"col-xs-8 col-sm-5\"><select id=\"ddlItemProvider{0}\" class=\"form-control\" disabled>{10}</select></div><label class=\"col-xs-4 col-sm-1 control-label\">Hours</label><div class=\"col-xs-8 col-sm-3\"> <select id=\"ddlItemHour{0}\" class=\"form-control\" disabled> <option value=\"30\">30 Min</option> <option value=\"45\">45 Min</option> <option value=\"60\" selected>1 Hr</option> <option value=\"75\">1 Hr 15 Min</option> <option value=\"90\">1 Hr 30 Min</option> <option value=\"105\">1 Hr 45 Min</option> <option value=\"120\">2 Hr</option> <option value=\"135\">2 Hr 15 Min</option> <option value=\"150\">2 Hr 30 Min</option> <option value=\"165\">2 Hr 45 Min</option> <option value=\"180\">3 Hr</option> <option value=\"195\">3 Hr 15 Min</option> <option value=\"210\">3 Hr 30 Min</option> <option value=\"225\">3 Hr 45 Min</option> <option value=\"240\">4 Hr</option> </select> </div> </div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Remark</label> <div class=\"col-xs-8 col-sm-3\"> <select id=\"ddlItemTherapist{0}\" class=\"form-control\" disabled> {9} </select> </div></div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Muscle Treatment</label> <div class=\"col-xs-8 col-sm-9\"> <select id=\"ddlItemMuscle{0}\" class=\"form-control\" multiple disabled> {11} </select> </div> </div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Massage Details</label> <div class=\"col-xs-8 col-sm-9\"> <textarea id=\"txtItemDetail{0}\" rows=\"6\" class=\"form-control\" readonly>{3}</textarea> </div> </div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Recommendations</label> <div class=\"col-xs-8 col-sm-9\"> <textarea id=\"txtItemRecom{0}\" rows=\"3\" class=\"form-control\" readonly>{4}</textarea> </div> </div> </div> <div class=\"panel-footer hidden\"> <small> <b>Created by:</b> <span id=\"lblItemCreateUser{0}\">{5}</span> <b>Created on:</b> <span id=\"lblItemCreateDatetime{0}\">{6}</span> <b>Updated by:</b> <span id=\"lblItemUpdateUser{0}\">{7}</span> <b>Updated on:</b> <span id=\"lblItemUpdateDatetime{0}\">{8}</span> </small> </div> </div>";
+var panelItemTemplate = "<div id=\"panelItem{0}\" class=\"panel panel-warning\"> <div class=\"panel-heading\"> <div class=\"row\"> <div class=\"col-sm-6\"> <div class=\"panel-title\"> <b>Report on</b> <span id=\"lblItemDate{0}\">{2}</span> </div> </div> <div class=\"col-sm-6 text-right\"> <button type=\"button\" id=\"btnEditItem{0}\" class=\"btn btn-info btn-xs\" name=\"{0}\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span> Edit</button> <button type=\"button\" id=\"btnDeleteItem{0}\" class=\"btn btn-danger btn-xs\" name=\"{0}\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>Delete</button> <button type=\"button\" id=\"btnUpdateItem{0}\" class=\"btn btn-warning btn-xs\" name=\"{1}\"><span class=\"glyphicon glyphicon-floppy-save\" aria-hidden=\"true\"></span> Update</button> <button type=\"button\" id=\"btnCancelItem{0}\" class=\"btn btn-default btn-xs\" name=\"{1}\">Cancel</button> </div></div> </div> <div class=\"panel-body\"> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Therapist</label><div class=\"col-xs-8 col-sm-5\"><select id=\"ddlItemProvider{0}\" class=\"form-control\" disabled>{10}</select></div><label class=\"col-xs-4 col-sm-1 control-label\">Hours</label><div class=\"col-xs-8 col-sm-3\"> <select id=\"ddlItemHour{0}\" class=\"form-control\" disabled> <option value=\"30\">30 Min</option> <option value=\"45\">45 Min</option> <option value=\"60\" selected>1 Hr</option> <option value=\"75\">1 Hr 15 Min</option> <option value=\"90\">1 Hr 30 Min</option> <option value=\"105\">1 Hr 45 Min</option> <option value=\"120\">2 Hr</option> <option value=\"135\">2 Hr 15 Min</option> <option value=\"150\">2 Hr 30 Min</option> <option value=\"165\">2 Hr 45 Min</option> <option value=\"180\">3 Hr</option> <option value=\"195\">3 Hr 15 Min</option> <option value=\"210\">3 Hr 30 Min</option> <option value=\"225\">3 Hr 45 Min</option> <option value=\"240\">4 Hr</option> </select> </div> </div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Remark</label> <div class=\"col-xs-8 col-sm-3\"> <select id=\"ddlItemTherapist{0}\" class=\"form-control\" disabled> {9} </select> </div></div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Template</label> <div class=\"col-xs-8 col-sm-9\"> <select id=\"ddlItemReportTemplate{0}\" class=\"form-control\" disabled> {12} </select> </div> </div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Muscle Treatment</label> <div class=\"col-xs-8 col-sm-9\"> <select id=\"ddlItemMuscle{0}\" class=\"form-control\" multiple disabled> {11} </select> </div> </div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Massage Details</label> <div class=\"col-xs-8 col-sm-9\"> <textarea id=\"txtItemDetail{0}\" rows=\"6\" class=\"form-control\" readonly>{3}</textarea> </div> </div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Recommendations</label> <div class=\"col-xs-8 col-sm-9\"> <textarea id=\"txtItemRecom{0}\" rows=\"3\" class=\"form-control\" readonly>{4}</textarea> </div> </div> </div> <div class=\"panel-footer hidden\"> <small> <b>Created by:</b> <span id=\"lblItemCreateUser{0}\">{5}</span> <b>Created on:</b> <span id=\"lblItemCreateDatetime{0}\">{6}</span> <b>Updated by:</b> <span id=\"lblItemUpdateUser{0}\">{7}</span> <b>Updated on:</b> <span id=\"lblItemUpdateDatetime{0}\">{8}</span> </small> </div> </div>";
 
 function initPage()
 {
@@ -172,7 +175,7 @@ function initPage()
 				prefillReport(selectedTemplate);
 				
 				// Resetting value to default
-				$(this).val('-1');
+				// $(this).val('-1');
 			} else if (selectedTemplateId == 0) {
 				prefillReport(null);
 			}
@@ -486,6 +489,7 @@ function clearReportInputs()
 	$txtReportDetail.val('');
 	$txtReportRecom.val('');
 	setSelectpickerValues($ddlMuscle, []);
+	$ddlReportTemplate.val(-1);
 }
 
 function addReport()
@@ -516,7 +520,8 @@ function getReportInfo()
 			report_hour: $ddlReportHour.val(),
 			report_detail: $txtReportDetail.val(),
 			report_recommendation: $txtReportRecom.val(),
-			report_muscle_treatment_ids: getSelectpickerValues($ddlMuscle)
+			report_muscle_treatment_ids: getSelectpickerValues($ddlMuscle),
+			report_template_id: $ddlReportTemplate.val()
 	};
 	
 	return reportInfo;
@@ -550,6 +555,8 @@ function onGetReportsDone(response)
 			
 			muscleList = _muscleOptions.slice(0); // duplicate the array to a new object
 			
+			templateList = _reportTemplateOptions.slice(0);
+			
 			$panelReportContainer.append(panelItemTemplate.format(
 					reportID,
 					i,
@@ -562,7 +569,8 @@ function onGetReportsDone(response)
 					_reports[i]['report_update_datetime'],
 					therapistList,
 					providerList,
-					muscleList
+					muscleList,
+					templateList
 				));
 			
 			initSelectpicker($(prefixItemMuscle + reportID), false, false, "");
@@ -577,6 +585,20 @@ function onGetReportsDone(response)
 			setReportItemTherapist(reportID, _reports[i]['therapist_id']);
 			setReportItemHour(reportID, _reports[i]['report_hour']);
 			setReportItemMuscle(reportID, _reports[i]['report_muscle_treatment_ids']);
+			setReportItemReportTemplate(reportID, _reports[i]['report_template_id']);
+			
+			$(prefixItemReportTemplate + reportID).change(function(){
+				const selectedTemplateId = $(this).val();
+				const elementID = $(this).attr('id');
+				const elementReportId = elementID.replace(prefixItemReportTemplate_NoSelector, '');
+				
+				if (selectedTemplateId > 0) {
+					const selectedTemplate = _reportTemplates.find(x => x.report_template_id == selectedTemplateId);
+					prefillEditingReport(elementReportId, selectedTemplate);
+				} else {
+					prefillEditingReport(elementReportId, null);
+				}
+			});
 		}
 	}
 	else {
@@ -634,7 +656,8 @@ function setReportItemBtnUpdate(reportID)
 			report_recommendation: getReportItemRecom(reportID),
 			therapist_id: getReportItemTherapist(reportID),
 			provider_id: getReportItemProvider(reportID),
-			report_muscle_treatment_ids: getReportItemMuscle(reportID)
+			report_muscle_treatment_ids: getReportItemMuscle(reportID),
+			report_template_id: getReportItemReportTemplate(reportID)
 		};
 		
 		updateReportItem(reportItemInfo);
@@ -698,6 +721,7 @@ function setReportItemViewMode(reportID)
 	$(prefixItemRecom + reportID).prop('readonly', true);
 	$(prefixItemMuscle + reportID).prop('disabled', true);
 	$(prefixItemMuscle + reportID).selectpicker('refresh');
+	$(prefixItemReportTemplate + reportID).prop('disabled', true);
 }
 
 function setReportItemEditMode(reportID)
@@ -714,6 +738,7 @@ function setReportItemEditMode(reportID)
 	$(prefixItemRecom + reportID).prop('readonly', '');
 	$(prefixItemMuscle + reportID).prop('disabled', false);
 	$(prefixItemMuscle + reportID).selectpicker('refresh');
+	$(prefixItemReportTemplate + reportID).prop('disabled', '');
 }
 
 function reverseReportItem(reportID, reportItemIndex)
@@ -724,6 +749,7 @@ function reverseReportItem(reportID, reportItemIndex)
 	setReportItemDetail(reportID, _reports[reportItemIndex]['report_detail']);
 	setReportItemRecom(reportID, _reports[reportItemIndex]['report_recommendation']);
 	setReportItemMuscle(reportID, _reports[reportItemIndex]['report_muscle_treatment_ids']);
+	setReportItemReportTemplate(reportID, _reports[reportItemIndex]['report_template_id']);
 }
 
 function setReportItemProvider(reportID, providerID)
@@ -794,6 +820,16 @@ function setReportItemMuscle(reportID, muscleIDs)
 function getReportItemMuscle(reportID)
 {
 	return getSelectpickerValues($(prefixItemMuscle + reportID));
+}
+
+function setReportItemReportTemplate(reportID, reportTemplateID)
+{
+	$(prefixItemReportTemplate + reportID).val(reportTemplateID);
+}
+
+function getReportItemReportTemplate(reportID)
+{
+	return $(prefixItemReportTemplate + reportID).val();
 }
 
 function validateReceiptDetails()
@@ -956,6 +992,18 @@ function prefillReport(selectReportTemplate) {
 		$txtReportDetail.val('');
 		$txtReportRecom.val('');
 		setSelectpickerValues($ddlMuscle, []);
+	}
+}
+
+function prefillEditingReport(reportID, selectReportTemplate) {
+	if (selectReportTemplate) {
+		setReportItemDetail(reportID, selectReportTemplate['report_template_detail']);
+		setReportItemRecom(reportID, selectReportTemplate['report_template_recommendation']);
+		setReportItemMuscle(reportID, selectReportTemplate['report_template_muscle_treatment_ids']);
+	} else {
+		setReportItemDetail(reportID, '');
+		setReportItemRecom(reportID, '');
+		setReportItemMuscle(reportID, []);
 	}
 }
 

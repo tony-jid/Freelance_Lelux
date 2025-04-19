@@ -41,10 +41,23 @@
 					$result = $clientFunction->updateClient($editedClientInfo);
 				}
 				else if ($mode == 'ADD_CLIENT_REPORT') {
-					$reportInfo = $_POST['data'];
+				    $reportInfo = $_POST['data'];
+				    Utilities::logInfo('Client-Boundary | data[reportInfo]: '.var_export($reportInfo, true));
+				    
+				    $result = $clientFunction->addReport($reportInfo);
+				}
+				else if ($mode == 'ADD_CLIENT_REPORT_WITH_FILE') {
+				    $reportInfo = json_decode($_POST['data'], true);
 					Utilities::logInfo('Client-Boundary | data[reportInfo]: '.var_export($reportInfo, true));
 					
-					$result = $clientFunction->addReport($reportInfo);
+					$file = null;
+					if (isset($_FILES['file'])) {
+					    $file = $_FILES['file'];
+					    $fileName = basename($file['name']);
+					    Utilities::logInfo('Client-Boundary | submitting report file: '.$fileName);
+					}
+					
+					$result = $clientFunction->addReportWithFile($reportInfo, $file);
 				}
 				else if ($mode == 'GET_REPORTS') {
 					$clientID = $_POST['data'];

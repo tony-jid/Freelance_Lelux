@@ -19,6 +19,7 @@ var $ddlReportProvider, $ddlReportTherapist, $txtReportDate, $ddlReportHour, $tx
 var $popupPrintReceipt, $txtReceiptDate, $txtReceiptValue, $ddlProvider;
 var $ddlReportTemplate;
 var $panelReportContainer;
+var $inputReportFile;
 
 var prefixPanelItem = '#panelItem';
 var prefixBtnEditItem = '#btnEditItem';
@@ -94,6 +95,8 @@ function initPage()
 		
 		$txtReportPrice = $('#txtReportPrice');
 		initMoneyInput($txtReportPrice, 0, 1000.99);
+		
+		$inputReportFile = $('#inputReportFile');
 		
 		$btnEditClient.click(function(){
 			setEditMode();
@@ -495,13 +498,21 @@ function clearReportInputs()
 	setSelectpickerValues($ddlMuscle, []);
 	$ddlReportTemplate.val(-1);
 	setMoneyInputValue($txtReportPrice, 0);
+	$inputReportFile.val('');
 }
 
 function addReport()
 {
 	reportInfo = getReportInfo();
-	//console.log("reportInfo", reportInfo);
-	main_request_ajax('client-boundary.php', 'ADD_CLIENT_REPORT', reportInfo, onAddReportDone);
+	
+	const fileInput = $inputReportFile[0];
+	const file = fileInput.files[0];
+	
+	// Original AJAX request without file upload 
+	//main_request_ajax('client-boundary.php', 'ADD_CLIENT_REPORT', reportInfo, onAddReportDone);
+	
+	// In order to upload a file with a request, need to use a different AJAX call 
+	main_request_ajax_with_file('client-boundary.php', 'ADD_CLIENT_REPORT_WITH_FILE', reportInfo, file, onAddReportDone);
 }
 
 function onAddReportDone(response)

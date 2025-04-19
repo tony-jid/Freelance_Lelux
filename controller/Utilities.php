@@ -176,5 +176,29 @@
 		public static function isWeekend($date) {
 		    return (date('N', strtotime($date)) >= 6);
 		}
+		
+		public static function getUniqueFileName($file, $id) {
+		    $timestamp = date('Ymd_His');
+		    $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+		    $fileName = $timestamp."_".$id.".".$extension;
+		    
+		    return $fileName;
+		}
+		
+		public static function createDirectoryIfNotExist($fileDirectory) {
+		    if (!file_exists($fileDirectory)) {
+		        mkdir($fileDirectory, 0777, true);
+		    }
+		}
+		
+		public static function uploadReportFile($file, $filePath, $reportId) {
+		    Utilities::logInfo("Uploading file ".$file['tmp_name']." to ".$filePath." for report ".$reportId);
+		    
+		    if (move_uploaded_file($file['tmp_name'], $filePath)) {
+		        Utilities::logInfo("Uploaded file ".$filePath." for report ".$reportId);
+		    } else {
+		        Utilities::logError("Failed uploading file ".$filePath." for report ".$reportId);
+		    }
+		}
 	}
 ?>

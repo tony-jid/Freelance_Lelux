@@ -364,7 +364,8 @@ order by client_name";
 						report_update_user, report_update_datetime,
 						provider_id,
                         report_template_id,
-                        report_price
+                        report_price,
+                        report_file
 					) 
 					values ('%s',
 						'%s', '%s', '%s',
@@ -373,7 +374,8 @@ order by client_name";
 						'%s', '%s',
 						%d,
                         %2f,
-                        %d
+                        %d,
+                        '%s'
 					)";
 			
 			$sql = sprintf($sql_format, $reportInfo['report_id'],
@@ -383,7 +385,8 @@ order by client_name";
 					$reportInfo['report_update_user'], $reportInfo['report_update_datetime'],
 					$reportInfo['provider_id'],
 			        $reportInfo['report_template_id'],
-			        $reportInfo['report_price']);
+			        $reportInfo['report_price'],
+			        $reportInfo['report_file']);
 			
 			return $this->_dataAccess->insert($sql);
 		} // insertReport
@@ -404,6 +407,7 @@ order by client_name";
 						, report.provider_id, provider.provider_active, provider.provider_name
                         , IFNULL(report_template_id, -1) as report_template_id
                         , IFNULL(report_price, 0) as report_price
+                        , IFNULL(report_file, '') as report_file
 					from report 
 					join therapist t on report.therapist_id = t.therapist_id
 					join therapist t_create on report.report_create_user = t_create.therapist_id

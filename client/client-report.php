@@ -401,6 +401,12 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label class="col-xs-4 col-sm-offset-2 col-sm-2 control-label">File</label>
+						<div class="col-xs-8 col-sm-6">
+							<input id="inputReportFile" class="form-control" type="file" accept=".jpg, .jpeg, .png, .pdf" />
+						</div>
+					</div>
+					<div class="form-group">
 						<div class="col-sm-12 text-center">
 							<button type="button" id="btnAddReport" class="btn btn-primary btn-lg">
 								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>

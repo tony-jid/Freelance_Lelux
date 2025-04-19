@@ -10,6 +10,8 @@
 		const MODE_UPDATE = 2;
 		const MODE_VOID = 3;
 		
+		const REPORT_FILE_PATH = "../reportFiles/";
+		
 		private $_dataMapper;
 		
 		public function ClientFunction()
@@ -242,6 +244,50 @@
 				return Utilities::getResponseResult(false, 'Adding new report has been failed!');
 			}
 		} // addClientReport
+		
+		public function addReportWithFile($reportInfo, $file)
+		{
+		    $reportId = Utilities::getUniqueID();
+		    $reportInfo['report_id'] = $reportId;
+		    $reportInfo['report_hour'] = $reportInfo['report_hour'] / 60.0;
+		    $reportInfo['report_date'] = Utilities::convertDateForDB($reportInfo['report_date']);
+		    
+		    $therapist = Authentication::getUser();
+		    
+		    $reportInfo['report_create_user'] = $therapist->getID();
+		    $reportInfo['report_create_datetime'] = Utilities::getDateTimeNowForDB();
+		    $reportInfo['report_update_user'] = $therapist->getID();
+		    $reportInfo['report_update_datetime'] = Utilities::getDateTimeNowForDB();
+		    
+		    $fileName = null;
+		    if ($file !== null) {
+		        Utilities::createDirectoryIfNotExist(self::REPORT_FILE_PATH);
+		        
+		        $fileName = Utilities::getUniqueFileName($file, $reportId);		        
+		        $reportInfo['report_file'] = $fileName;
+		    } else {
+		        $reportInfo['report_file'] = '';
+		    }
+		    
+		    $afffectedRow = $this->_dataMapper->insertReport($reportInfo);
+		    
+		    if ($afffectedRow > 0)
+		    {
+		        $this->_dataMapper->updateReportMuscleTreatments($reportInfo);
+		        
+		        // Uploading file
+		        if ($fileName !== null) {
+		            $filePath = self::REPORT_FILE_PATH.$fileName;
+		            Utilities::uploadReportFile($file, $filePath, $reportId);
+		        }
+		        
+		        return Utilities::getResponseResult(true, 'The report has been added successfully.', $reportInfo);
+		    }
+		    else
+		    {
+		        return Utilities::getResponseResult(false, 'Adding new report has been failed!');
+		    }
+		} // addReportWithFile
 		
 		public function getReports($clientID)
 		{

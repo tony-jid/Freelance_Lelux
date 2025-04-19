@@ -79,6 +79,38 @@ function main_request_ajax(url, mode, data, onSuccess)
 	});
 }
 
+function main_request_ajax_with_file(url, mode, data, file, onSuccess)
+{
+	main_loading_show(); // show loading
+
+	const formData = new FormData();
+	formData.append('mode', mode);
+	formData.append('data', JSON.stringify(data));
+	formData.append('file', file);
+	
+	$.ajax({
+		url: url,
+		type: 'post',
+		data: formData,
+		success: function(response){
+			if (response.timeout === undefined) {
+				onSuccess(JSON.parse(response));
+			} else {
+				main_redirect('../login/');
+			}
+		},
+		contentType: false,
+		processData: false,
+		error: function(xhr, errType, err){
+			main_loading_hide(); // hide loading when error occurred
+			main_alert_message('System Error! Please contact admin.');
+			
+			console.log(errType + ': ' + xhr.responseText.trim());
+			main_request_ajax('../log/log-boundary.php', '', errType + ': ' + xhr.responseText.trim(), function(response){});
+		}
+	});
+}
+
 function main_redirect(url)
 {
 	parent.window.location.replace(url);

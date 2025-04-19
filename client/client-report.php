@@ -368,6 +368,12 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label class="col-xs-4 col-sm-offset-2 col-sm-2 control-label">Price</label>
+						<div class="col-xs-8 col-sm-2">
+							<input type="text" id="txtReportPrice" class="form-control" value="0">
+						</div>
+					</div>
+					<div class="form-group">
 						<label class="col-xs-4 col-sm-offset-2 col-sm-2 control-label">Template</label>
 						<div class="col-xs-8 col-sm-6">
 							<select id="ddlReportTemplate" class="form-control">

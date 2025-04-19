@@ -15,7 +15,7 @@ var $btnAddReport;
 var $btnPrintReport;
 var $btnPrintReceipt;
 
-var $ddlReportProvider, $ddlReportTherapist, $txtReportDate, $ddlReportHour, $txtReportDetail, $txtReportRecom, $ddlMuscle;
+var $ddlReportProvider, $ddlReportTherapist, $txtReportDate, $ddlReportHour, $txtReportDetail, $txtReportRecom, $ddlMuscle, $txtReportPrice;
 var $popupPrintReceipt, $txtReceiptDate, $txtReceiptValue, $ddlProvider;
 var $ddlReportTemplate;
 var $panelReportContainer;
@@ -35,8 +35,9 @@ var prefixItemUpdateDatetime = '#lblItemUpdateDatetime';
 var prefixItemMuscle = '#ddlItemMuscle';
 var prefixItemReportTemplate = '#ddlItemReportTemplate';
 var prefixItemReportTemplate_NoSelector = 'ddlItemReportTemplate';
+var prefixItemReportPrice = '#txtItemReportPrice';
 
-var panelItemTemplate = "<div id=\"panelItem{0}\" class=\"panel panel-warning\"> <div class=\"panel-heading\"> <div class=\"row\"> <div class=\"col-sm-6\"> <div class=\"panel-title\"> <b>Report on</b> <span id=\"lblItemDate{0}\">{2}</span> </div> </div> <div class=\"col-sm-6 text-right\"> <button type=\"button\" id=\"btnEditItem{0}\" class=\"btn btn-info btn-xs\" name=\"{0}\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span> Edit</button> <button type=\"button\" id=\"btnDeleteItem{0}\" class=\"btn btn-danger btn-xs\" name=\"{0}\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>Delete</button> <button type=\"button\" id=\"btnUpdateItem{0}\" class=\"btn btn-warning btn-xs\" name=\"{1}\"><span class=\"glyphicon glyphicon-floppy-save\" aria-hidden=\"true\"></span> Update</button> <button type=\"button\" id=\"btnCancelItem{0}\" class=\"btn btn-default btn-xs\" name=\"{1}\">Cancel</button> </div></div> </div> <div class=\"panel-body\"> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Therapist</label><div class=\"col-xs-8 col-sm-5\"><select id=\"ddlItemProvider{0}\" class=\"form-control\" disabled>{10}</select></div><label class=\"col-xs-4 col-sm-1 control-label\">Hours</label><div class=\"col-xs-8 col-sm-3\"> <select id=\"ddlItemHour{0}\" class=\"form-control\" disabled> <option value=\"30\">30 Min</option> <option value=\"45\">45 Min</option> <option value=\"60\" selected>1 Hr</option> <option value=\"75\">1 Hr 15 Min</option> <option value=\"90\">1 Hr 30 Min</option> <option value=\"105\">1 Hr 45 Min</option> <option value=\"120\">2 Hr</option> <option value=\"135\">2 Hr 15 Min</option> <option value=\"150\">2 Hr 30 Min</option> <option value=\"165\">2 Hr 45 Min</option> <option value=\"180\">3 Hr</option> <option value=\"195\">3 Hr 15 Min</option> <option value=\"210\">3 Hr 30 Min</option> <option value=\"225\">3 Hr 45 Min</option> <option value=\"240\">4 Hr</option> </select> </div> </div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Remark</label> <div class=\"col-xs-8 col-sm-3\"> <select id=\"ddlItemTherapist{0}\" class=\"form-control\" disabled> {9} </select> </div></div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Template</label> <div class=\"col-xs-8 col-sm-9\"> <select id=\"ddlItemReportTemplate{0}\" class=\"form-control\" disabled> {12} </select> </div> </div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Muscle Treatment</label> <div class=\"col-xs-8 col-sm-9\"> <select id=\"ddlItemMuscle{0}\" class=\"form-control\" multiple disabled> {11} </select> </div> </div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Massage Details</label> <div class=\"col-xs-8 col-sm-9\"> <textarea id=\"txtItemDetail{0}\" rows=\"6\" class=\"form-control\" readonly>{3}</textarea> </div> </div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Recommendations</label> <div class=\"col-xs-8 col-sm-9\"> <textarea id=\"txtItemRecom{0}\" rows=\"3\" class=\"form-control\" readonly>{4}</textarea> </div> </div> </div> <div class=\"panel-footer hidden\"> <small> <b>Created by:</b> <span id=\"lblItemCreateUser{0}\">{5}</span> <b>Created on:</b> <span id=\"lblItemCreateDatetime{0}\">{6}</span> <b>Updated by:</b> <span id=\"lblItemUpdateUser{0}\">{7}</span> <b>Updated on:</b> <span id=\"lblItemUpdateDatetime{0}\">{8}</span> </small> </div> </div>";
+var panelItemTemplate = "<div id=\"panelItem{0}\" class=\"panel panel-warning\"> <div class=\"panel-heading\"> <div class=\"row\"> <div class=\"col-sm-6\"> <div class=\"panel-title\"> <b>Report on</b> <span id=\"lblItemDate{0}\">{2}</span> </div> </div> <div class=\"col-sm-6 text-right\"> <button type=\"button\" id=\"btnEditItem{0}\" class=\"btn btn-info btn-xs\" name=\"{0}\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span> Edit</button> <button type=\"button\" id=\"btnDeleteItem{0}\" class=\"btn btn-danger btn-xs\" name=\"{0}\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>Delete</button> <button type=\"button\" id=\"btnUpdateItem{0}\" class=\"btn btn-warning btn-xs\" name=\"{1}\"><span class=\"glyphicon glyphicon-floppy-save\" aria-hidden=\"true\"></span> Update</button> <button type=\"button\" id=\"btnCancelItem{0}\" class=\"btn btn-default btn-xs\" name=\"{1}\">Cancel</button> </div></div> </div> <div class=\"panel-body\"> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Therapist</label><div class=\"col-xs-8 col-sm-5\"><select id=\"ddlItemProvider{0}\" class=\"form-control\" disabled>{10}</select></div><label class=\"col-xs-4 col-sm-1 control-label\">Hours</label><div class=\"col-xs-8 col-sm-3\"> <select id=\"ddlItemHour{0}\" class=\"form-control\" disabled> <option value=\"30\">30 Min</option> <option value=\"45\">45 Min</option> <option value=\"60\" selected>1 Hr</option> <option value=\"75\">1 Hr 15 Min</option> <option value=\"90\">1 Hr 30 Min</option> <option value=\"105\">1 Hr 45 Min</option> <option value=\"120\">2 Hr</option> <option value=\"135\">2 Hr 15 Min</option> <option value=\"150\">2 Hr 30 Min</option> <option value=\"165\">2 Hr 45 Min</option> <option value=\"180\">3 Hr</option> <option value=\"195\">3 Hr 15 Min</option> <option value=\"210\">3 Hr 30 Min</option> <option value=\"225\">3 Hr 45 Min</option> <option value=\"240\">4 Hr</option> </select> </div> </div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Remark</label> <div class=\"col-xs-8 col-sm-3\"> <select id=\"ddlItemTherapist{0}\" class=\"form-control\" disabled> {9} </select> </div></div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Price</label> <div class=\"col-xs-8 col-sm-2\"> <input type=\"text\" id=\"txtItemReportPrice{0}\" class=\"form-control\" /> </div></div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Template</label> <div class=\"col-xs-8 col-sm-9\"> <select id=\"ddlItemReportTemplate{0}\" class=\"form-control\" disabled> {12} </select> </div> </div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Muscle Treatment</label> <div class=\"col-xs-8 col-sm-9\"> <select id=\"ddlItemMuscle{0}\" class=\"form-control\" multiple disabled> {11} </select> </div> </div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Massage Details</label> <div class=\"col-xs-8 col-sm-9\"> <textarea id=\"txtItemDetail{0}\" rows=\"6\" class=\"form-control\" readonly>{3}</textarea> </div> </div> <div class=\"form-group\"> <label class=\"col-xs-4 col-sm-3 control-label\">Recommendations</label> <div class=\"col-xs-8 col-sm-9\"> <textarea id=\"txtItemRecom{0}\" rows=\"3\" class=\"form-control\" readonly>{4}</textarea> </div> </div> </div> <div class=\"panel-footer hidden\"> <small> <b>Created by:</b> <span id=\"lblItemCreateUser{0}\">{5}</span> <b>Created on:</b> <span id=\"lblItemCreateDatetime{0}\">{6}</span> <b>Updated by:</b> <span id=\"lblItemUpdateUser{0}\">{7}</span> <b>Updated on:</b> <span id=\"lblItemUpdateDatetime{0}\">{8}</span> </small> </div> </div>";
 
 function initPage()
 {
@@ -90,6 +91,9 @@ function initPage()
 		initProviders();
 		initMuscles();
 		initReportTemplates();
+		
+		$txtReportPrice = $('#txtReportPrice');
+		initMoneyInput($txtReportPrice, 0, 1000.99);
 		
 		$btnEditClient.click(function(){
 			setEditMode();
@@ -490,6 +494,7 @@ function clearReportInputs()
 	$txtReportRecom.val('');
 	setSelectpickerValues($ddlMuscle, []);
 	$ddlReportTemplate.val(-1);
+	setMoneyInputValue($txtReportPrice, 0);
 }
 
 function addReport()
@@ -521,7 +526,8 @@ function getReportInfo()
 			report_detail: $txtReportDetail.val(),
 			report_recommendation: $txtReportRecom.val(),
 			report_muscle_treatment_ids: getSelectpickerValues($ddlMuscle),
-			report_template_id: $ddlReportTemplate.val()
+			report_template_id: $ddlReportTemplate.val(),
+			report_price: getMoneyInputValue($txtReportPrice)
 	};
 	
 	return reportInfo;
@@ -585,8 +591,8 @@ function onGetReportsDone(response)
 			setReportItemTherapist(reportID, _reports[i]['therapist_id']);
 			setReportItemHour(reportID, _reports[i]['report_hour']);
 			setReportItemMuscle(reportID, _reports[i]['report_muscle_treatment_ids']);
-			setReportItemReportTemplate(reportID, _reports[i]['report_template_id']);
 			
+			setReportItemReportTemplate(reportID, _reports[i]['report_template_id']);			
 			$(prefixItemReportTemplate + reportID).change(function(){
 				const selectedTemplateId = $(this).val();
 				const elementID = $(this).attr('id');
@@ -599,6 +605,9 @@ function onGetReportsDone(response)
 					prefillEditingReport(elementReportId, null);
 				}
 			});
+			
+			initMoneyInput($(prefixItemReportPrice + reportID), 0, 1000.99);
+			setReportItemPrice(reportID, _reports[i]['report_price']);
 		}
 	}
 	else {
@@ -657,7 +666,8 @@ function setReportItemBtnUpdate(reportID)
 			therapist_id: getReportItemTherapist(reportID),
 			provider_id: getReportItemProvider(reportID),
 			report_muscle_treatment_ids: getReportItemMuscle(reportID),
-			report_template_id: getReportItemReportTemplate(reportID)
+			report_template_id: getReportItemReportTemplate(reportID),
+			report_price: getReportItemPrice(reportID)
 		};
 		
 		updateReportItem(reportItemInfo);
@@ -722,6 +732,7 @@ function setReportItemViewMode(reportID)
 	$(prefixItemMuscle + reportID).prop('disabled', true);
 	$(prefixItemMuscle + reportID).selectpicker('refresh');
 	$(prefixItemReportTemplate + reportID).prop('disabled', true);
+	$(prefixItemReportPrice + reportID).prop('readonly', true);
 }
 
 function setReportItemEditMode(reportID)
@@ -739,6 +750,7 @@ function setReportItemEditMode(reportID)
 	$(prefixItemMuscle + reportID).prop('disabled', false);
 	$(prefixItemMuscle + reportID).selectpicker('refresh');
 	$(prefixItemReportTemplate + reportID).prop('disabled', '');
+	$(prefixItemReportPrice + reportID).prop('readonly', '');
 }
 
 function reverseReportItem(reportID, reportItemIndex)
@@ -750,6 +762,7 @@ function reverseReportItem(reportID, reportItemIndex)
 	setReportItemRecom(reportID, _reports[reportItemIndex]['report_recommendation']);
 	setReportItemMuscle(reportID, _reports[reportItemIndex]['report_muscle_treatment_ids']);
 	setReportItemReportTemplate(reportID, _reports[reportItemIndex]['report_template_id']);
+	setReportItemPrice(reportID, _reports[reportItemIndex]['report_price']);
 }
 
 function setReportItemProvider(reportID, providerID)
@@ -830,6 +843,16 @@ function setReportItemReportTemplate(reportID, reportTemplateID)
 function getReportItemReportTemplate(reportID)
 {
 	return $(prefixItemReportTemplate + reportID).val();
+}
+
+function setReportItemPrice(reportID, price)
+{
+	setMoneyInputValue($(prefixItemReportPrice + reportID), price);
+}
+
+function getReportItemPrice(reportID)
+{
+	return getMoneyInputValue($(prefixItemReportPrice + reportID));
 }
 
 function validateReceiptDetails()

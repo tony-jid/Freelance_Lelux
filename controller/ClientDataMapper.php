@@ -363,7 +363,8 @@ order by client_name";
 						report_create_user, report_create_datetime,
 						report_update_user, report_update_datetime,
 						provider_id,
-                        report_template_id                        
+                        report_template_id,
+                        report_price
 					) 
 					values ('%s',
 						'%s', '%s', '%s',
@@ -371,6 +372,7 @@ order by client_name";
 						'%s', '%s',
 						'%s', '%s',
 						%d,
+                        %2f,
                         %d
 					)";
 			
@@ -380,7 +382,8 @@ order by client_name";
 					$reportInfo['report_create_user'], $reportInfo['report_create_datetime'],
 					$reportInfo['report_update_user'], $reportInfo['report_update_datetime'],
 					$reportInfo['provider_id'],
-			        $reportInfo['report_template_id']);
+			        $reportInfo['report_template_id'],
+			        $reportInfo['report_price']);
 			
 			return $this->_dataAccess->insert($sql);
 		} // insertReport
@@ -400,6 +403,7 @@ order by client_name";
 						, DATE_FORMAT(report_update_datetime, '%%e/%%m/%%Y %%T') as report_update_datetime
 						, report.provider_id, provider.provider_active, provider.provider_name
                         , IFNULL(report_template_id, -1) as report_template_id
+                        , IFNULL(report_price, 0) as report_price
 					from report 
 					join therapist t on report.therapist_id = t.therapist_id
 					join therapist t_create on report.report_create_user = t_create.therapist_id
@@ -423,7 +427,8 @@ order by client_name";
 						report_update_user = '%s',
 						report_update_datetime = '%s',
 						provider_id = %d,
-						report_template_id = %d
+						report_template_id = %d,
+						report_price = %2f
 					where report_id = '%s'";
 			
 			$sql = sprintf($sql_format, 
@@ -435,6 +440,7 @@ order by client_name";
 					$reportItemInfo['report_update_datetime'],
 					$reportItemInfo['provider_id'],
 			        $reportItemInfo['report_template_id'],
+			        $reportItemInfo['report_price'],
 					$reportItemInfo['report_id']
 				);
 			

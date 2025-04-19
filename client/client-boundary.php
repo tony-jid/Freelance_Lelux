@@ -71,6 +71,19 @@
 					
 					$result = $clientFunction->updateReportItem($reportItemInfo);
 				}
+				else if ($mode == 'UPDATE_REPORT_WITH_FILE') {
+				    $reportItemInfo = json_decode($_POST['data'], true);
+				    Utilities::logInfo('Client-Boundary | data[reportItemInfo]: '.var_export($reportItemInfo, true));
+				    
+				    $file = null;
+				    if (isset($_FILES['file'])) {
+				        $file = $_FILES['file'];
+				        $fileName = basename($file['name']);
+				        Utilities::logInfo('Client-Boundary | updating report file: '.$fileName);
+				    }
+				    
+				    $result = $clientFunction->updateReportItemWithFile($reportItemInfo, $file);
+				}
 				else if ($mode == 'DELETE_REPORT') {
 					$reportItemInfo = $_POST['data'];
 					// Data consists of just "report_id"

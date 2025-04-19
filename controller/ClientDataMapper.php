@@ -423,6 +423,11 @@ order by client_name";
 		
 		public function updateReportItem($reportItemInfo)
 		{
+		    $reportFileSetCommand = '';
+		    if ($reportItemInfo['report_file'] !== '') {
+		        $reportFileSetCommand = ", report_file = '".$reportItemInfo['report_file']."'";
+		    }
+		    
 			$sql_format = "update report
 					set therapist_id = %d,
 						report_hour = %2f,
@@ -433,6 +438,7 @@ order by client_name";
 						provider_id = %d,
 						report_template_id = %d,
 						report_price = %2f
+						%s
 					where report_id = '%s'";
 			
 			$sql = sprintf($sql_format, 
@@ -445,6 +451,7 @@ order by client_name";
 					$reportItemInfo['provider_id'],
 			        $reportItemInfo['report_template_id'],
 			        $reportItemInfo['report_price'],
+			        $reportFileSetCommand,
 					$reportItemInfo['report_id']
 				);
 			

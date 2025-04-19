@@ -672,7 +672,6 @@ function setReportItemBtnUpdate(reportID)
 		// It the event bound via funtion then
 		// Don't need to find "report_id" agian because the value of [reportID] is already bound
 		//reportItemID = $(this).prop('name');
-		setReportItemViewMode(reportID);
 		
 		reportItemIndex = $(this).prop('name');
 		
@@ -689,13 +688,18 @@ function setReportItemBtnUpdate(reportID)
 			report_price: getReportItemPrice(reportID)
 		};
 		
-		updateReportItem(reportItemInfo);
+		const fileInput = $(prefixInputItemReportFile + reportID)[0];
+		const file = fileInput.files[0];
+		
+		updateReportItem(reportItemInfo, file);		
+		setReportItemViewMode(reportID);
 	});
 }
 
-function updateReportItem(reportItemInfo)
+function updateReportItem(reportItemInfo, file)
 {
-	main_request_ajax('client-boundary.php', 'UPDATE_REPORT', reportItemInfo, onUpdateReportItem);
+	//main_request_ajax('client-boundary.php', 'UPDATE_REPORT', reportItemInfo, onUpdateReportItem);
+	main_request_ajax_with_file('client-boundary.php', 'UPDATE_REPORT_WITH_FILE', reportItemInfo, file, onUpdateReportItem);
 }
 
 function onUpdateReportItem(response)
@@ -715,6 +719,14 @@ function onUpdateReportItem(response)
 		_reports[updatedReportItemIndex]['report_detail'] = reportItemInfo['report_detail'];
 		_reports[updatedReportItemIndex]['report_recommendation'] = reportItemInfo['report_recommendation'];
 		_reports[updatedReportItemIndex]['report_muscle_treatment_ids'] = reportItemInfo['report_muscle_treatment_ids'];
+		_reports[updatedReportItemIndex]['report_template_id'] = reportItemInfo['report_template_id'];
+		_reports[updatedReportItemIndex]['report_price'] = reportItemInfo['report_price'];
+		
+		const reportFile = reportItemInfo['report_file'];
+		if (reportFile != '') {
+			_reports[updatedReportItemIndex]['report_file'] = reportFile;
+			setReportItemFileLink(updatedReportID, reportFile);
+		}
 		
 		setReportItemUpdateUser(updatedReportID, reportItemInfo['report_update_user']);
 		setReportItemUpdateDatetime(updatedReportID, reportItemInfo['report_update_datetime']);
@@ -753,14 +765,10 @@ function setReportItemViewMode(reportID)
 	$(prefixItemReportTemplate + reportID).prop('disabled', true);
 	$(prefixItemReportPrice + reportID).prop('readonly', true);
 	
-	const fileLink = $(prefixBtnItemViewReportFile + reportID).attr('href');
-	if (fileLink != '#') {
-		$(prefixBtnItemViewReportFile + reportID).removeClass('hidden');
-	} else {
-		$(prefixBtnItemViewReportFile + reportID).addClass('hidden');
-	}
+	toggleReportItemFileLink(reportID);
 	
 	$(prefixInputItemReportFile + reportID).addClass('hidden');
+	resetReportItemInputFile(reportID);
 }
 
 function setReportItemEditMode(reportID)
@@ -787,7 +795,10 @@ function setReportItemEditMode(reportID)
 		$(prefixBtnItemViewReportFile + reportID).addClass('hidden');
 	}
 	
+	toggleReportItemFileLink(reportID);
+	
 	$(prefixInputItemReportFile + reportID).removeClass('hidden');
+	resetReportItemInputFile(reportID);
 }
 
 function reverseReportItem(reportID, reportItemIndex)
@@ -800,6 +811,9 @@ function reverseReportItem(reportID, reportItemIndex)
 	setReportItemMuscle(reportID, _reports[reportItemIndex]['report_muscle_treatment_ids']);
 	setReportItemReportTemplate(reportID, _reports[reportItemIndex]['report_template_id']);
 	setReportItemPrice(reportID, _reports[reportItemIndex]['report_price']);
+	
+	$(prefixInputItemReportFile + reportID).addClass('hidden');
+	resetReportItemInputFile(reportID);
 }
 
 function setReportItemProvider(reportID, providerID)
@@ -890,6 +904,26 @@ function setReportItemPrice(reportID, price)
 function getReportItemPrice(reportID)
 {
 	return getMoneyInputValue($(prefixItemReportPrice + reportID));
+}
+
+function toggleReportItemFileLink(reportID) {
+	const fileLink = $(prefixBtnItemViewReportFile + reportID).attr('href');
+	if (fileLink != '#') {
+		$(prefixBtnItemViewReportFile + reportID).removeClass('hidden');
+	} else {
+		$(prefixBtnItemViewReportFile + reportID).addClass('hidden');
+	}
+}
+
+function resetReportItemInputFile(reportID)
+{
+	$(prefixInputItemReportFile + reportID).val('');
+}
+
+function setReportItemFileLink(reportID, fileLink)
+{
+	$(prefixBtnItemViewReportFile + reportID).attr('href', fileLink);
+	toggleReportItemFileLink(reportID);
 }
 
 function validateReceiptDetails()

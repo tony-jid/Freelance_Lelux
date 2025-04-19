@@ -373,6 +373,49 @@
 			}
 		} // updateReportItem
 		
+		public function updateReportItemWithFile($reportItemInfo, $file)
+		{
+		    $reportId = $reportItemInfo['report_id'];
+		    $therapist = Authentication::getUser();
+		    
+		    $reportItemInfo['report_hour'] = $reportItemInfo['report_hour'] / 60.0;
+		    $reportItemInfo['report_update_user'] = $therapist->getID();
+		    $reportItemInfo['report_update_datetime'] = Utilities::getDateTimeNowForDB();
+		    
+		    $fileName = null;
+		    if ($file !== null) {
+		        Utilities::createDirectoryIfNotExist(self::REPORT_FILE_PATH);
+		        
+		        $fileName = Utilities::getUniqueFileName($file, $reportId);
+		        $reportItemInfo['report_file'] = $fileName;
+		    } else {
+		        $reportItemInfo['report_file'] = '';
+		    }
+		    
+		    $affectedRow = $this->_dataMapper->updateReportItem($reportItemInfo);
+		    
+		    if ($affectedRow > 0) {
+		        $reportItemInfo['report_hour'] = $reportItemInfo['report_hour'] * 60.0;
+		        $reportItemInfo['report_update_user'] = $therapist->getName();
+		        $reportItemInfo['report_update_datetime'] = Utilities::convertDatetimeForDisplay($reportItemInfo['report_update_datetime']);
+		        
+		        $this->_dataMapper->updateReportMuscleTreatments($reportItemInfo);
+		        
+		        // Uploading file
+		        if ($fileName !== null) {
+		            $filePath = self::REPORT_FILE_PATH.$fileName;
+		            Utilities::uploadReportFile($file, $filePath, $reportId);
+		            
+		            $reportItemInfo['report_file'] = self::REPORT_FILE_PATH.$reportItemInfo['report_file'];
+		        }
+		        
+		        return Utilities::getResponseResult(true, 'Report information has been updated successfully.', $reportItemInfo);
+		    }
+		    else {
+		        return Utilities::getResponseResult(false, 'Updating report has failed!', $reportItemInfo);
+		    }
+		} // updateReportItem
+		
 		public function deleteReportItem($reportItemInfo)
 		{
 			$therapist = Authentication::getUser();

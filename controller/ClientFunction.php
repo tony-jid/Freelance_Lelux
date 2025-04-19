@@ -310,6 +310,10 @@
 			            
 			            $reports[$i]['report_muscle_treatment_ids'] = $muscleTreatmentIDs;
 			        }
+			        
+			        if ($reports[$i]['report_file'] !== '') {
+			            $reports[$i]['report_file'] = self::REPORT_FILE_PATH.$reports[$i]['report_file'];
+			        }
 			    }
 			    
 			    return Utilities::getResponseResult(true, '', $reports);

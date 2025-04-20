@@ -5,7 +5,7 @@
 
 	class Utilities
 	{
-		const log_path = "/MassageStore/log/";
+		const log_path = "../log/";
 		//const log_path = "/support/log/";
 		
 		public static function getUniqueID($prefix = null)
@@ -54,6 +54,7 @@
 		{
 			try {
 				//$logger = new KLogger($_SERVER['DOCUMENT_ROOT'].self::log_path.'log-'.date('Ymd'), KLogger::DEBUG);
+			    //$logger = new KLogger(self::log_path.'log-'.date('Ymd'), KLogger::DEBUG);
 				//$logger->LogDebug($line);
 			} catch (Exception $e) {
 			}
@@ -62,7 +63,8 @@
 		public static function logInfo($line)
 		{
 			try {
-				$logger = new KLogger($_SERVER['DOCUMENT_ROOT'].self::log_path.'log-'.date('Ymd'), KLogger::DEBUG);
+				//$logger = new KLogger($_SERVER['DOCUMENT_ROOT'].self::log_path.'log-'.date('Ymd'), KLogger::DEBUG);
+			    $logger = new KLogger(self::log_path.'log-'.date('Ymd'), KLogger::DEBUG);
 				$logger->LogInfo($line);
 			} catch (Exception $e) {
 			}
@@ -71,7 +73,8 @@
 		public static function logError($line)
 		{
 			try {
-				$logger = new KLogger($_SERVER['DOCUMENT_ROOT'].self::log_path.'log-'.date('Ymd'), KLogger::DEBUG);
+				//$logger = new KLogger($_SERVER['DOCUMENT_ROOT'].self::log_path.'log-'.date('Ymd'), KLogger::DEBUG);
+			    $logger = new KLogger(self::log_path.'log-'.date('Ymd'), KLogger::DEBUG);
 				$logger->LogError($line);
 			} catch (Exception $e) {
 			}

@@ -5,7 +5,7 @@
 
 	class Utilities
 	{
-		const log_path = "/MassageStore/log/";
+		const log_path = "../log/";
 		//const log_path = "/support/log/";
 		
 		public static function getUniqueID($prefix = null)
@@ -54,6 +54,7 @@
 		{
 			try {
 				//$logger = new KLogger($_SERVER['DOCUMENT_ROOT'].self::log_path.'log-'.date('Ymd'), KLogger::DEBUG);
+			    //$logger = new KLogger(self::log_path.'log-'.date('Ymd'), KLogger::DEBUG);
 				//$logger->LogDebug($line);
 			} catch (Exception $e) {
 			}
@@ -62,7 +63,8 @@
 		public static function logInfo($line)
 		{
 			try {
-				$logger = new KLogger($_SERVER['DOCUMENT_ROOT'].self::log_path.'log-'.date('Ymd'), KLogger::DEBUG);
+				//$logger = new KLogger($_SERVER['DOCUMENT_ROOT'].self::log_path.'log-'.date('Ymd'), KLogger::DEBUG);
+			    $logger = new KLogger(self::log_path.'log-'.date('Ymd'), KLogger::DEBUG);
 				$logger->LogInfo($line);
 			} catch (Exception $e) {
 			}
@@ -71,7 +73,8 @@
 		public static function logError($line)
 		{
 			try {
-				$logger = new KLogger($_SERVER['DOCUMENT_ROOT'].self::log_path.'log-'.date('Ymd'), KLogger::DEBUG);
+				//$logger = new KLogger($_SERVER['DOCUMENT_ROOT'].self::log_path.'log-'.date('Ymd'), KLogger::DEBUG);
+			    $logger = new KLogger(self::log_path.'log-'.date('Ymd'), KLogger::DEBUG);
 				$logger->LogError($line);
 			} catch (Exception $e) {
 			}
@@ -175,6 +178,30 @@
 		
 		public static function isWeekend($date) {
 		    return (date('N', strtotime($date)) >= 6);
+		}
+		
+		public static function getUniqueFileName($file, $id) {
+		    $timestamp = date('Ymd_His');
+		    $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+		    $fileName = $timestamp."_".$id.".".$extension;
+		    
+		    return $fileName;
+		}
+		
+		public static function createDirectoryIfNotExist($fileDirectory) {
+		    if (!file_exists($fileDirectory)) {
+		        mkdir($fileDirectory, 0777, true);
+		    }
+		}
+		
+		public static function uploadReportFile($file, $filePath, $reportId) {
+		    Utilities::logInfo("Uploading file ".$file['tmp_name']." to ".$filePath." for report ".$reportId);
+		    
+		    if (move_uploaded_file($file['tmp_name'], $filePath)) {
+		        Utilities::logInfo("Uploaded file ".$filePath." for report ".$reportId);
+		    } else {
+		        Utilities::logError("Failed uploading file ".$filePath." for report ".$reportId);
+		    }
 		}
 	}
 ?>

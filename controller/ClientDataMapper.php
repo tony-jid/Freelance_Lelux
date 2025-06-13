@@ -362,14 +362,20 @@ order by client_name";
 						report_recommendation, report_hour, therapist_id,
 						report_create_user, report_create_datetime,
 						report_update_user, report_update_datetime,
-						provider_id
+						provider_id,
+                        report_template_id,
+                        report_price,
+                        report_file
 					) 
 					values ('%s',
 						'%s', '%s', '%s',
 						'%s', %2f, %d,
 						'%s', '%s',
 						'%s', '%s',
-						%d
+						%d,
+                        %2f,
+                        %d,
+                        '%s'
 					)";
 			
 			$sql = sprintf($sql_format, $reportInfo['report_id'],
@@ -377,7 +383,10 @@ order by client_name";
 					$reportInfo['report_recommendation'], $reportInfo['report_hour'], $reportInfo['therapist_id'],
 					$reportInfo['report_create_user'], $reportInfo['report_create_datetime'],
 					$reportInfo['report_update_user'], $reportInfo['report_update_datetime'],
-					$reportInfo['provider_id']);
+					$reportInfo['provider_id'],
+			        $reportInfo['report_template_id'],
+			        $reportInfo['report_price'],
+			        $reportInfo['report_file']);
 			
 			return $this->_dataAccess->insert($sql);
 		} // insertReport
@@ -396,6 +405,9 @@ order by client_name";
 						, t_update.therapist_name as report_update_user
 						, DATE_FORMAT(report_update_datetime, '%%e/%%m/%%Y %%T') as report_update_datetime
 						, report.provider_id, provider.provider_active, provider.provider_name
+                        , IFNULL(report_template_id, -1) as report_template_id
+                        , IFNULL(report_price, 0) as report_price
+                        , IFNULL(report_file, '') as report_file
 					from report 
 					join therapist t on report.therapist_id = t.therapist_id
 					join therapist t_create on report.report_create_user = t_create.therapist_id
@@ -411,6 +423,11 @@ order by client_name";
 		
 		public function updateReportItem($reportItemInfo)
 		{
+		    $reportFileSetCommand = '';
+		    if ($reportItemInfo['report_file'] !== '') {
+		        $reportFileSetCommand = ", report_file = '".$reportItemInfo['report_file']."'";
+		    }
+		    
 			$sql_format = "update report
 					set therapist_id = %d,
 						report_hour = %2f,
@@ -418,7 +435,10 @@ order by client_name";
 						report_recommendation = '%s',
 						report_update_user = '%s',
 						report_update_datetime = '%s',
-						provider_id = %d
+						provider_id = %d,
+						report_template_id = %d,
+						report_price = %2f
+						%s
 					where report_id = '%s'";
 			
 			$sql = sprintf($sql_format, 
@@ -429,6 +449,9 @@ order by client_name";
 					$reportItemInfo['report_update_user'],
 					$reportItemInfo['report_update_datetime'],
 					$reportItemInfo['provider_id'],
+			        $reportItemInfo['report_template_id'],
+			        $reportItemInfo['report_price'],
+			        $reportFileSetCommand,
 					$reportItemInfo['report_id']
 				);
 			

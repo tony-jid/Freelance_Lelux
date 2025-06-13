@@ -368,6 +368,12 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label class="col-xs-4 col-sm-offset-2 col-sm-2 control-label">Price</label>
+						<div class="col-xs-8 col-sm-2">
+							<input type="text" id="txtReportPrice" class="form-control" value="0">
+						</div>
+					</div>
+					<div class="form-group">
 						<label class="col-xs-4 col-sm-offset-2 col-sm-2 control-label">Template</label>
 						<div class="col-xs-8 col-sm-6">
 							<select id="ddlReportTemplate" class="form-control">
@@ -392,6 +398,12 @@
 						<label class="col-xs-4 col-sm-offset-2 col-sm-2 control-label">Recommendation</label>
 						<div class="col-xs-8 col-sm-6">
 							<textarea id="txtReportRecom" rows="3" class="form-control"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-4 col-sm-offset-2 col-sm-2 control-label">File</label>
+						<div class="col-xs-8 col-sm-6">
+							<input id="inputReportFile" class="form-control" type="file" accept=".jpg, .jpeg, .png, .pdf" />
 						</div>
 					</div>
 					<div class="form-group">

@@ -50,144 +50,140 @@ function initPage()
 	//alert(_clientID + ' | ' + _clientID.length);
 	
 	if (_clientID != null && _clientID.length > 0) {
-		initElementVariables();
-		$txtEmail.inputmask('email');
-		$txtBirthday.inputmask('date');
-		$txtContactNo.inputmask('9999-999-999');
-		$txtEmerConNo.inputmask('9999-999-999');
-		$txtPatientID.TouchSpin({
-			verticalbuttons: true,
-			min: 0,
-			max: 9
-		});
-		
-		getClientInfo(_clientID);
-		
-		$btnEditClient = $('#btnEditClient');
-		$btnUpdateClient = $('#btnUpdateClient');
-		$btnCancelEdit = $('#btnCancelEdit');
-		$btnAddReport = $('#btnAddReport');
-		$btnPrintReport = $('#btnPrintReport');
-		$btnPrintReceipt = $('#btnPrintReceipt');
-		
-		$panelReportContainer = $('#panelReportContainer');
-		$ddlReportProvider = $('#ddlReportProvider');
-		$ddlReportTherapist = $('#ddlReportTherapist');
-		$txtReportDate = $('#txtReportDate');
-		$ddlReportHour = $('#ddlReportHour');
-		$txtReportDetail = $('#txtReportDetail');
-		$txtReportRecom = $('#txtReportRecom');
-		$ddlMuscle = $('#ddlMuscle');
-		$ddlReportTemplate = $('#ddlReportTemplate');
-		
-		$popupPrintReceipt = $('#popupPrintReceipt');
-		$txtReceiptDate = $('#txtReceiptDate');
-		$txtReceiptValue = $('#txtReceiptValue');
-		$ddlProvider = $('#ddlProvider');
-		
-		$txtReportDate.inputmask('date');
-		$txtReportDate.val(main_convert_date_format(new Date())); // default Report Date = today
-		$txtReceiptDate.inputmask('date');
-		$txtReceiptDate.val(main_convert_date_format(new Date())); // default Receipt Date = today
-		$txtReceiptValue.autoNumeric('init', { vMin: 0, vMax: 999, aSign: '$' });
-		
-		initProviders();
-		initMuscles();
-		initReportTemplates();
-		
-		$txtReportPrice = $('#txtReportPrice');
-		initMoneyInput($txtReportPrice, 0, 1000.99);
-		
-		$inputReportFile = $('#inputReportFile');
-		
-		$btnEditClient.click(function(){
-			setEditMode();
-		});
-		
-		$btnUpdateClient.click(function(){
-			if (validateInputs()) {
-				main_confirm_message('Do you want to update client information?', updateClient, function(){ $btnUpdateClient.focus(); });
-			}
-		});
-		
-		$btnCancelEdit.click(function(){
-			cancelEditClient();
-		});
-		
-		$btnAddReport.click(function(){
-			if (validateReportInputs())
-				main_confirm_message('Do you want to add a report?', addReport, function(){ $btnAddReport.focus(); });
-		});
-		
-		$btnPrintReport.click(function(){
-    		main_open_new_tab('../report/report.php?report_type=CLIENT_REPORT&client_id=' + _clientID);
-    	});
-		
-		$btnPrintReceipt.click(function(){
-			if (validateReceiptDetails()) {
-				// get date and value
-				var receiptDate = $txtReceiptDate.val();
-				var receiptValue = $txtReceiptValue.val();
-				var providerNo = $ddlProvider.find('option:selected').text();
-	    		main_open_new_tab('../report/report.php?report_type=CLIENT_RECEIPT&client_id=' + _clientID + '&receipt_date=' + receiptDate + '&receipt_value=' + receiptValue + '&provider_no=' + providerNo);
-	    		
-	    		$popupPrintReceipt.modal('hide');
-			}
-    	});
-		
-		$popupPrintReceipt.on('shown.bs.modal', function (e) {
-			$txtReceiptDate.val(main_convert_date_format(new Date()));
-			$txtReceiptValue.val('');
-			$txtReceiptDate.focus();
-		})
-		
-		$txtReceiptDate.keypress(function(e){
-			if (e.which == 13) {
-				$txtReceiptValue.focus();
-				return false;
-			} 
-		});
-		
-		$txtReceiptValue.keypress(function(e){
-			if (e.which == 13) {
-				$btnPrintReceipt.click();
-				return false;
-			} 
-		});
-		
-		$txtReportDetail.keypress(function(e){
-			if (e.which == 13) {
-				//$txtReportRecom.focus();
-				//return false;
-			} 
-		});
-		
-		$txtReportRecom.keypress(function(e){
-			if (e.which == 13) {
-				//$btnAddReport.click();
-				//return false;
-			}
-		});
-		
-		$ddlProvider.change(function(){
-			if ($(this).val() === 'ADD_NEW_PROVIDER') // "ADD NEW PROVIDER" selected 
-			{
-				main_open_child_window('../provider/provider.php', initProviders);
-				main_set_dropdown_index(this);
-			}
-		});
-		
-		$ddlReportTemplate.change(function(){
-			const selectedTemplateId = $(this).val();
-			if (selectedTemplateId > 0) {
-				const selectedTemplate = _reportTemplates.find(x => x.report_template_id == selectedTemplateId);				
-				prefillReport(selectedTemplate);
-				
-				// Resetting value to default
-				// $(this).val('-1');
-			} else if (selectedTemplateId == 0) {
-				prefillReport(null);
-			}
+		initElementVariables(() => {
+			$txtEmail.inputmask('email');
+			$txtBirthday.inputmask('date');
+			$txtContactNo.inputmask('9999-999-999');
+			$txtEmerConNo.inputmask('9999-999-999');
+			$txtPatientID.TouchSpin({
+				verticalbuttons: true,
+				min: 0,
+				max: 9
+			});
+			
+			getClientInfo(_clientID);
+			
+			$btnEditClient = $('#btnEditClient');
+			$btnUpdateClient = $('#btnUpdateClient');
+			$btnCancelEdit = $('#btnCancelEdit');
+			$btnAddReport = $('#btnAddReport');
+			$btnPrintReport = $('#btnPrintReport');
+			$btnPrintReceipt = $('#btnPrintReceipt');
+			
+			$panelReportContainer = $('#panelReportContainer');
+			$ddlReportProvider = $('#ddlReportProvider');
+			$ddlReportTherapist = $('#ddlReportTherapist');
+			$txtReportDate = $('#txtReportDate');
+			$ddlReportHour = $('#ddlReportHour');
+			$txtReportDetail = $('#txtReportDetail');
+			$txtReportRecom = $('#txtReportRecom');
+			$ddlMuscle = $('#ddlMuscle');
+			$ddlReportTemplate = $('#ddlReportTemplate');
+			
+			$popupPrintReceipt = $('#popupPrintReceipt');
+			$txtReceiptDate = $('#txtReceiptDate');
+			$txtReceiptValue = $('#txtReceiptValue');
+			$ddlProvider = $('#ddlProvider');
+			
+			$txtReportDate.inputmask('date');
+			$txtReportDate.val(main_convert_date_format(new Date())); // default Report Date = today
+			$txtReceiptDate.inputmask('date');
+			$txtReceiptDate.val(main_convert_date_format(new Date())); // default Receipt Date = today
+			$txtReceiptValue.autoNumeric('init', { vMin: 0, vMax: 999, aSign: '$' });
+			
+			initProviders();
+			initMuscles();
+			initReportTemplates();
+			
+			$btnEditClient.click(function(){
+				setEditMode();
+			});
+			
+			$btnUpdateClient.click(function(){
+				if (validateInputs()) {
+					main_confirm_message('Do you want to update client information?', updateClient, function(){ $btnUpdateClient.focus(); });
+				}
+			});
+			
+			$btnCancelEdit.click(function(){
+				cancelEditClient();
+			});
+			
+			$btnAddReport.click(function(){
+				if (validateReportInputs())
+					main_confirm_message('Do you want to add a report?', addReport, function(){ $btnAddReport.focus(); });
+			});
+			
+			$btnPrintReport.click(function(){
+	    		main_open_new_tab('../report/report.php?report_type=CLIENT_REPORT&client_id=' + _clientID);
+	    	});
+			
+			$btnPrintReceipt.click(function(){
+				if (validateReceiptDetails()) {
+					// get date and value
+					var receiptDate = $txtReceiptDate.val();
+					var receiptValue = $txtReceiptValue.val();
+					var providerNo = $ddlProvider.find('option:selected').text();
+		    		main_open_new_tab('../report/report.php?report_type=CLIENT_RECEIPT&client_id=' + _clientID + '&receipt_date=' + receiptDate + '&receipt_value=' + receiptValue + '&provider_no=' + providerNo);
+		    		
+		    		$popupPrintReceipt.modal('hide');
+				}
+	    	});
+			
+			$popupPrintReceipt.on('shown.bs.modal', function (e) {
+				$txtReceiptDate.val(main_convert_date_format(new Date()));
+				$txtReceiptValue.val('');
+				$txtReceiptDate.focus();
+			})
+			
+			$txtReceiptDate.keypress(function(e){
+				if (e.which == 13) {
+					$txtReceiptValue.focus();
+					return false;
+				} 
+			});
+			
+			$txtReceiptValue.keypress(function(e){
+				if (e.which == 13) {
+					$btnPrintReceipt.click();
+					return false;
+				} 
+			});
+			
+			$txtReportDetail.keypress(function(e){
+				if (e.which == 13) {
+					//$txtReportRecom.focus();
+					//return false;
+				} 
+			});
+			
+			$txtReportRecom.keypress(function(e){
+				if (e.which == 13) {
+					//$btnAddReport.click();
+					//return false;
+				}
+			});
+			
+			$ddlProvider.change(function(){
+				if ($(this).val() === 'ADD_NEW_PROVIDER') // "ADD NEW PROVIDER" selected 
+				{
+					main_open_child_window('../provider/provider.php', initProviders);
+					main_set_dropdown_index(this);
+				}
+			});
+			
+			$ddlReportTemplate.change(function(){
+				const selectedTemplateId = $(this).val();
+				if (selectedTemplateId > 0) {
+					const selectedTemplate = _reportTemplates.find(x => x.report_template_id == selectedTemplateId);				
+					prefillReport(selectedTemplate);
+					
+					// Resetting value to default
+					$(this).val('-1');
+				} else if (selectedTemplateId == 0) {
+					prefillReport(null);
+				}
+			});
 		});
 	}
 	else {

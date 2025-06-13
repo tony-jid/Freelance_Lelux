@@ -73,6 +73,7 @@ var $txtOtherCon;
 var $txtEmerConName;
 var $txtEmerConNo;
 var $rowHealthFundInput;
+var callbackInitElementVariables;
 
 var findingElements = [
                        { 'id': '1', 'name': 'True Local', 'suffix': 'TrueLocal' },
@@ -100,8 +101,10 @@ var conditionElements = [
                          { id: '12', name: 'Sore Back', suffix: 'SoreBack' },
                          ];
 
-function initElementVariables()
+function initElementVariables(callback)
 {
+	callbackInitElementVariables = callback;
+	
 	$ddlHealthFund = $('#ddlHealthFund');
 	$txtMemNo = $('#txtMemNo');
 	$txtPatientID = $('#txtPatientID');
@@ -178,6 +181,11 @@ function onInitHealthFunds(response)
 		});
 		
 		toggleHealthFundClinetInputs();
+		
+		if (callbackInitElementVariables !== undefined
+			&& typeof callbackInitElementVariables === "function") {
+			callbackInitElementVariables();			
+		}
 	}
 } // onInitHealthFunds
 

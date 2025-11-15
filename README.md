@@ -1,7 +1,16 @@
 # Freelance_Lelux
 
+How to launch it on local?
+1. Install XAMPP Control Panel
+2. Clone repo to C:\xampp\htdocs
+3. Start Apache and MySQL via XAMPP 
+4. Hint: access MySQL with http://localhost:8080/phpmyadmin/
+5. Hint: upadte database name in DataAccess.php
+6. Hint: access the app with http://localhost:8080/{RepoFolder}/Login/ e.g. http://localhost:8080/MassageStore/Login/
+
 Manual Changes:
-	1. changing "log path"
+	1. Changing "log path" to '/{RepoFolder}/log/' in controller/Utilities.php
+	
 
 Deployment: 30 March 2016
 	*Note:	changing "log path"
@@ -9,7 +18,7 @@ Deployment: 30 March 2016
 	
 Deployment Instruction: 21 April 2016
 	- MySQL: health_fund: Add new health fund "HCF"
-	- MySQL: health_fund: edit single quote of "The Doctors’ Health Fund"
+	- MySQL: health_fund: edit single quote of "The Doctorsï¿½ Health Fund"
 	- MySQL: update - therapist table structure
 	- MySQL: change data type of create_user, update_user, void_user to tinyint in client and report table
 		*** beware of existed data: change it before update the struture

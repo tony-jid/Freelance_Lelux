@@ -6,7 +6,7 @@ var _therapistOptions, _massageTypeOptions, _editModeMassageTypeOptions, _roomOp
 var _timelineSelectedRecordID;
 
 var $dateInput;
-var $txtDate, $ddlMassageType, $ddlTherapist, $ddlRoom, $cbRequested, $txtMinutes, $txtStamp;
+var $txtDate, $ddlMassageType, $ddlTherapist, $ddlRoom, $cbRequested, $cbIsBankTransfer, $txtMinutes, $txtStamp;
 var $txtTimeIn, $txtTimeOut;
 var $txtCash, $cbPromotionPrice, $txtCredit, $txtHICAPS, $txtVoucher, $txtPaidTotal;
 var $txtStdCommission, $txtReqReward, $txtCommissionTotal;
@@ -15,6 +15,7 @@ var $btnAdd, $btnUpdate, $btnDelete, $btnCancelEdit;
 var $tableRecord, $tableRecordBody;
 var dtTableRecord;
 
+var BANK_TRANSFER_EXTRA_COMMISSION = 3;
 var DATE_PICKER_FORMAT = 'DD, d MM yyyy';
 var MOMENT_DATE_PICKER_FORMAT = 'dddd, D MMMM YYYY';
 var MOMENT_DATE_FORMAT = 'YYYY-M-D';
@@ -34,6 +35,7 @@ function initPage()
 	$ddlRoom = $('#ddlRoom');
 	$ddlMassageType = $('#ddlMassageType');
 	$cbRequested = $('#cbRequested');
+	$cbIsBankTransfer = $('#cbIsBankTransfer');
 	$txtMinutes = $('#txtMinutes');
 	$txtTimeIn = $('#txtTimeIn');
 	$txtTimeOut = $('#txtTimeOut');
@@ -143,6 +145,10 @@ function initPage()
 	setTimeIn();
 	
 	$cbRequested.change(function(){
+		calReqReward();
+	});
+	
+	$cbIsBankTransfer.change(function(){
 		calReqReward();
 	});
 	
@@ -572,6 +578,7 @@ function setEditingRecord(recordIndex)
 	$ddlMassageType.val(_editingRecord['massage_type_id']);
 	
 	if (_editingRecord['massage_record_requested'] == true) $cbRequested.prop('checked', true);
+	if (_editingRecord['massage_record_is_banktransfer'] == true) $cbIsBankTransfer.prop('checked', true);
 	if (_editingRecord['massage_record_promotion'] == true) $cbPromotionPrice.prop('checked', true);
 	
 	$txtMinutes.val(_editingRecord['massage_record_minutes']);
@@ -597,6 +604,7 @@ function clearInputs()
 	$txtMinutes.val(60);
 	$txtStamp.val(0);
 	$cbRequested.prop('checked', false)
+	$cbIsBankTransfer.prop('checked', false)
 	$cbPromotionPrice.prop('checked', false)
 	setMoneyInputValue($txtCash, 0);
 	setMoneyInputValue($txtCredit, 0);
@@ -633,10 +641,9 @@ function calReqReward()
 	
 	//freeStamp = parseInt($txtStamp.val()); // changed back when 15/4/17
 	//minutes = minutes - freeStamp; // changed back when 15/4/17
-
+	reward = 0.0;
+	
 	if (minutes >= _minimumRequest) {
-		reward = 0.0;
-		
 		req = $cbRequested.is(':checked');
 		stamp = parseInt($txtStamp.val()) > 0 ? true : false; // stamp condition is changed to be minute condition; changed back when 15/4/17
 		promo = $cbPromotionPrice.is(':checked');
@@ -657,13 +664,14 @@ function calReqReward()
 		// calculate Extra Commission from MassageType
 		selectedMassageType = getSelectedMassageType();
 		reward += parseFloat(selectedMassageType['massage_type_commission']);
-		
-		setMoneyInputValue($txtReqReward, reward);
-	}
-	else {
-		setMoneyInputValue($txtReqReward, 0);
 	}
 	
+	var isBankTransfer = $cbIsBankTransfer.is(':checked');
+	if (isBankTransfer) {
+		reward += BANK_TRANSFER_EXTRA_COMMISSION;
+	}
+	
+	setMoneyInputValue($txtReqReward, reward);
 	calCommission();
 }
 
@@ -736,6 +744,7 @@ function getRecordInfo(recordID)
 		'therapist_id': $ddlTherapist.val(),
 		'massage_type_id': $ddlMassageType.val(),
 		'massage_record_requested': $cbRequested.is(':checked'),
+		'massage_record_is_banktransfer': $cbIsBankTransfer.is(':checked'),
 		'massage_record_minutes': $txtMinutes.val(),
 		'massage_record_stamp': $txtStamp.val(),
 		'massage_record_cash': getMoneyInputValue($txtCash),

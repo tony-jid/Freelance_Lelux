@@ -1236,6 +1236,8 @@ ALTER TABLE `report_template_muscle_treatment`
 --
 ALTER TABLE `report_template_muscle_treatment`
   MODIFY `report_template_muscle_treatment_id` int(11) NOT NULL AUTO_INCREMENT;
-  
+ 
+ALTER TABLE `massage_record` ADD `massage_record_is_banktransfer` TINYINT(1) NOT NULL DEFAULT '0' AFTER `massage_record_request_reward`;
+
 COMMIT;
 

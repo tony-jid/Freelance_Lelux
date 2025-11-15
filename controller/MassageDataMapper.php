@@ -34,6 +34,7 @@
 					, massage_type.massage_type_id, massage_type.massage_type_name, massage_type.massage_type_active, massage_type.massage_type_commission
 					, room_no
 					, booking_item.booking_item_id, booking.booking_name, booking.booking_tel
+                    , massage_record_is_banktransfer
 				from massage_record
 				join therapist on therapist.therapist_id = massage_record.therapist_id
 				join massage_type on massage_type.massage_type_id = massage_record.massage_type_id
@@ -65,6 +66,7 @@
 						, massage_record_time_in, massage_record_time_out
 						, room_no
 						, booking_item_id
+                        , massage_record_is_banktransfer
 					)
 					values (
 						{$recordInfo['therapist_id']}
@@ -78,6 +80,7 @@
 						, '{$recordInfo['massage_record_time_in']}', '{$recordInfo['massage_record_time_out']}'
 						, {$recordInfo['room_no']}
 						, {$bookingItemID}
+                        , {$recordInfo['massage_record_is_banktransfer']}
 					)";
 			
 			return $this->_dataAccess->insert($sql);
@@ -103,6 +106,7 @@
 						, massage_record_time_in = '{$recordInfo['massage_record_time_in']}'
 						, massage_record_time_out = '{$recordInfo['massage_record_time_out']}'
 						, room_no = {$recordInfo['room_no']}
+                        , massage_record_is_banktransfer = {$recordInfo['massage_record_is_banktransfer']}
 					where massage_record_id = {$recordInfo['massage_record_id']}";
 			
 			return $this->_dataAccess->update($sql);

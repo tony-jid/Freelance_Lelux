@@ -2,6 +2,7 @@
 	require_once '../controller/Authentication.php';
 	require_once '../controller/MassageDataMapper.php';
 	require_once '../controller/BookingDataMapper.php';
+	require_once '../controller/TherapistDataMapper.php';
 	require_once '../controller/Config.php';
 	require_once '../controller/Utilities.php';
 
@@ -91,12 +92,13 @@
 		
 		public function addRecordByQueueing($recordInfo)
 		{
-			$recordInfo['massage_record_commission'] = $this->getCommission($recordInfo['massage_record_date'], $recordInfo['massage_record_minutes']);
+		    $recordInfo['massage_record_commission'] = $this->getCommission($recordInfo['massage_record_date'], $recordInfo['massage_record_minutes'], $recordInfo['therapist_id']);
 			$recordInfo['massage_record_request_reward'] = $this->getExtraCommission(
 					$recordInfo['massage_record_date'], $recordInfo['massage_record_minutes']
 					, filter_var($recordInfo['massage_record_requested'], FILTER_VALIDATE_BOOLEAN), $recordInfo['massage_record_stamp']
 					, filter_var($recordInfo['massage_record_promotion'], FILTER_VALIDATE_BOOLEAN)
 					, $recordInfo['massage_type_commission']);
+			$recordInfo['massage_record_is_banktransfer'] = 0;
 			
 			$affectedRow = $this->executeCommand($recordInfo, self::MODE_ADD);
 				
@@ -110,12 +112,13 @@
 		
 		public function addRecordByBooking($recordInfo)
 		{
-			$recordInfo['massage_record_commission'] = $this->getCommission($recordInfo['massage_record_date'], $recordInfo['massage_record_minutes']);
+		    $recordInfo['massage_record_commission'] = $this->getCommission($recordInfo['massage_record_date'], $recordInfo['massage_record_minutes'], $recordInfo['therapist_id']);
 			$recordInfo['massage_record_request_reward'] = $this->getExtraCommission(
 					$recordInfo['massage_record_date'], $recordInfo['massage_record_minutes']
 					, filter_var($recordInfo['massage_record_requested'], FILTER_VALIDATE_BOOLEAN), $recordInfo['massage_record_stamp']
 					, filter_var($recordInfo['massage_record_promotion'], FILTER_VALIDATE_BOOLEAN)
 					, $recordInfo['massage_type_commission']);
+			$recordInfo['massage_record_is_banktransfer'] = 0;
 			
 			$affectedRow = $this->executeCommand($recordInfo, self::MODE_ADD, $recordInfo['booking_item_id']);
 			
@@ -164,14 +167,46 @@
 			}
 		}
 		
-		private function getCommission($date, $minutes)
+		private function getCommission($date, $minutes, $therapist_id)
 		{
-			$config = new Config();
-			$comRate = $config->getCommissionRate($date);
-			
-			Utilities::logDebug('MassageFunction.getExtraCommission() | Standard Commission: '.($minutes * $comRate));
-			
-			return $minutes * $comRate;
+		    $config = new Config();
+		    //$comRate = $config->getCommissionRate($date); // 17/12/2024
+		    //$stdCom = $minutes * $comRate; // 17/12/2024
+		    
+		    // 1/1/2022 - adding extra $ into standard commission
+		    /*if ($minutes <= 15) {
+		     // nothing
+		     } else if ($minutes <= 30) {
+		     $stdCom += 2.5;
+		     } else if ($minutes <= 45) {
+		     $stdCom += 3.75;
+		     } else if ($minutes <= 75) {
+		     $stdCom += 6.25;
+		     } else if ($minutes <= 90) {
+		     $stdCom += 7.5;
+		     } else {
+		     $stdCom += 5;
+		     }*/
+		    
+		    // 24/1/2022
+		    //$extraCom = floor($minutes / 15) * 1.25;
+		    //$stdCom += $extraCom;
+		    
+		    // 17/12/2024
+		    // Hour rate of each therapist might differ
+		    $therapistDataMapper = new TherapistDataMapper();
+		    $therapist = $therapistDataMapper->getTherapist($therapist_id);
+		    
+		    $hourRate = 35;
+		    if ($therapist != null && count($therapist) > 0) {
+		        $hourRate = $therapist[0]['therapist_hour_rate'];
+		    }
+		    
+		    $stdCom = ($minutes / 60) * $hourRate;
+		    
+		    Utilities::logDebug('MassageFunction.getExtraCommission() | Standard Commission: '.($stdCom));
+		    
+		    return $stdCom;
 		}
 		
 		private function getExtraCommission($date, $minutes, $isRequested, $stamp, $isPromo, $massageTypeCommission) {

@@ -101,9 +101,9 @@ function initPage()
 	$txtMinutes.TouchSpin({
 		verticalbuttons: true,
 		initval: 60,
-		min: 10,
+		min: 15,
 		max: 600,
-		step: 5
+		step: 15
 	});
 	$txtMinutes.change(function(){
 		calReqReward();
@@ -174,6 +174,10 @@ function initPage()
 		
 		calReqReward();
 	});*/
+	
+	$ddlTherapist.change(function(){
+	    calCommission();
+	});
 	
 	$ddlMassageType.change(function(){
 		if ($(this).val() === 'ADD_NEW_MASSAGE_TYPE') // "ADD NEW MASSAGE TYPE" selected 
@@ -625,11 +629,52 @@ function clearInputs()
 	setTimeIn();
 }
 
+// *** Please note ***
+// There is duplicate commision calculation logic in MassageFunction.php too
+//
 function calCommission()
 {
 	minutes = $txtMinutes.val();
 	reward = getMoneyInputValue($txtReqReward);
 	commission = minutes * _commissionRate;
+	
+	//commission = minutes * _commissionRate; // 17/12/2024
+	
+	// 1/1/2022 - adding extra $ into standard commission
+	/*if (minutes <= 15) {
+	    // nothing
+	} else if (minutes <= 30) {
+	    commission += 2.5;
+	} else if (minutes <= 45) {
+	    commission += 3.75;
+	} else if (minutes <= 75) {
+	    commission += 5;
+	} else if (minutes <= 90) {
+	    commission += 7.5;
+	} else {
+	    commission += 5;
+	}*/
+	
+	// 24/1/2022
+	//extraCom = Math.floor(minutes / 15) * 1.25;
+	//commission += extraCom;
+	
+	// 17/12/2024
+	// Hour rate of each therapist might differ
+	var therapistId = $ddlTherapist.val();
+	var selectedTherapist = null;
+	$.each(_therapistOptions, function (i, therapist){
+		if (therapist['therapist_id'] == therapistId)
+		{
+		    selectedTherapist = therapist;
+		    return false;
+		}
+	});
+	
+	var hourRate = 35;
+	if (selectedTherapist != null) hourRate = selectedTherapist['therapist_hour_rate'];
+	
+	var commission = (minutes / 60) * hourRate;
 
 	setMoneyInputValue($txtStdCommission, commission);
 	setMoneyInputValue($txtCommissionTotal, commission + reward);

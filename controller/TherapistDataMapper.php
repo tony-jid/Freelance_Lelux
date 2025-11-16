@@ -17,6 +17,13 @@
 			return $this->_dataAccess->select($sql);
 		}
 		
+		public function getTherapist($therapist_id)
+		{
+		    $sql = "select * from therapist where therapist_id = {$therapist_id}";
+		    
+		    return $this->_dataAccess->select($sql);
+		}
+		
 		public function getOnlyTherapists() {
 			// do not select receptions
 			$sql = "
@@ -72,7 +79,7 @@ order by therapist_name
 				$conditionShowAllStaff = 'and shift.shift_working = 1';
 				
 			$sql = "
-					select therapist.therapist_id, therapist.therapist_name, therapist.therapist_guarantee
+					select therapist.therapist_id, therapist.therapist_name, therapist.therapist_guarantee, therapist.therapist_hour_rate
 						, shift.shift_id, shift.shift_working
 						, shift_type.shift_type_id, shift_type.shift_type_name, shift_type.shift_type_rate
 						, shift_time_start, shift_create_datetime, shift_type_color
@@ -90,7 +97,7 @@ order by therapist_name
 		public function getTherapistsWorkingOnShift($date)
 		{
 			$sql = "
-			select therapist.therapist_id, therapist.therapist_name, therapist.therapist_guarantee
+			select therapist.therapist_id, therapist.therapist_name, therapist.therapist_guarantee, therapist.therapist_hour_rate
 				, shift.shift_id, shift.shift_working
 				, shift_type.shift_type_name, shift_type.shift_type_rate
 			from therapist

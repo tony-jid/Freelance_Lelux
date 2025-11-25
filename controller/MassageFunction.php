@@ -92,13 +92,16 @@
 		
 		public function addRecordByQueueing($recordInfo)
 		{
-		    $recordInfo['massage_record_commission'] = $this->getCommission($recordInfo['massage_record_date'], $recordInfo['massage_record_minutes'], $recordInfo['therapist_id']);
+		    if ($recordInfo['massage_record_is_banktransfer'] == null) {
+		        $recordInfo['massage_record_is_banktransfer'] = 0;
+		    }
+		    
+		    $recordInfo['massage_record_commission'] = $this->getCommission($recordInfo['massage_record_date'], $recordInfo['massage_record_minutes'], $recordInfo['therapist_id'], filter_var($recordInfo['massage_record_is_banktransfer'], FILTER_VALIDATE_BOOLEAN));
 			$recordInfo['massage_record_request_reward'] = $this->getExtraCommission(
 					$recordInfo['massage_record_date'], $recordInfo['massage_record_minutes']
 					, filter_var($recordInfo['massage_record_requested'], FILTER_VALIDATE_BOOLEAN), $recordInfo['massage_record_stamp']
 					, filter_var($recordInfo['massage_record_promotion'], FILTER_VALIDATE_BOOLEAN)
 					, $recordInfo['massage_type_commission']);
-			$recordInfo['massage_record_is_banktransfer'] = 0;
 			
 			$affectedRow = $this->executeCommand($recordInfo, self::MODE_ADD);
 				
@@ -112,13 +115,16 @@
 		
 		public function addRecordByBooking($recordInfo)
 		{
-		    $recordInfo['massage_record_commission'] = $this->getCommission($recordInfo['massage_record_date'], $recordInfo['massage_record_minutes'], $recordInfo['therapist_id']);
+		    if ($recordInfo['massage_record_is_banktransfer'] == null) {
+		        $recordInfo['massage_record_is_banktransfer'] = 0;
+		    }
+		    
+		    $recordInfo['massage_record_commission'] = $this->getCommission($recordInfo['massage_record_date'], $recordInfo['massage_record_minutes'], $recordInfo['therapist_id'], filter_var($recordInfo['massage_record_is_banktransfer'], FILTER_VALIDATE_BOOLEAN));
 			$recordInfo['massage_record_request_reward'] = $this->getExtraCommission(
 					$recordInfo['massage_record_date'], $recordInfo['massage_record_minutes']
 					, filter_var($recordInfo['massage_record_requested'], FILTER_VALIDATE_BOOLEAN), $recordInfo['massage_record_stamp']
 					, filter_var($recordInfo['massage_record_promotion'], FILTER_VALIDATE_BOOLEAN)
 					, $recordInfo['massage_type_commission']);
-			$recordInfo['massage_record_is_banktransfer'] = 0;
 			
 			$affectedRow = $this->executeCommand($recordInfo, self::MODE_ADD, $recordInfo['booking_item_id']);
 			
@@ -167,7 +173,7 @@
 			}
 		}
 		
-		private function getCommission($date, $minutes, $therapist_id)
+		private function getCommission($date, $minutes, $therapist_id, $isBankTransfer)
 		{
 		    $config = new Config();
 		    //$comRate = $config->getCommissionRate($date); // 17/12/2024
@@ -200,6 +206,10 @@
 		    $hourRate = 35;
 		    if ($therapist != null && count($therapist) > 0) {
 		        $hourRate = $therapist[0]['therapist_hour_rate'];
+		    }
+		    
+		    if ($isBankTransfer) {
+		        $hourRate += Const_Config::BANK_TRANSFER_EXTRA_HOUR_RATE;
 		    }
 		    
 		    $stdCom = ($minutes / 60) * $hourRate;

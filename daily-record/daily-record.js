@@ -23,7 +23,7 @@ var RECORD_ADD_MODE_BOOKING = 'ADD_MODE_BOOKING';
 var _massageTypes, _recordInfo, _bookingInfo, _recordAddMode;
 var $modalMassageRecord, $btnAddRecord;
 var $lblRecordTime, $lblRecordTherapist, $lblRecordRoom;
-var $ddlRecordMassageType, $cbRecordRequested, $cbRecordPromo;
+var $ddlRecordMassageType, $cbRecordRequested, $cbRecordPromo, $cbRecordBankTransfer;
 var $txtRecordStamp, $txtRecordCash, $txtRecordCredit, $txtRecordHICAPS, $txtRecordVoucher, $txtRecordTotal;
 var $txtRecordMinutes, $txtRecordTimeIn, $txtRecordTimeOut;
 
@@ -152,6 +152,7 @@ function initPage()
 	$lblRecordRoom = $('#lblRecordRoom');
 	$ddlRecordMassageType = $('#ddlRecordMassageType');
 	$cbRecordRequested = $('#cbRecordRequested');
+	$cbRecordBankTransfer = $('#cbRecordBankTransfer');
 	$cbRecordPromo = $('#cbRecordPromo');
 	$txtRecordStamp = $('#txtRecordStamp');
 	$txtRecordCash = $('#txtRecordCash');
@@ -813,14 +814,17 @@ function showMassageRecord(recordInfo, bookingInfo) {
 	_recordInfo = recordInfo;
 	_bookingInfo = bookingInfo;
 	
-	if (typeof(bookingInfo) === 'undefined')
+	var bookingTherapistName = "";
+	if (typeof(bookingInfo) === 'undefined') {
 		_recordAddMode = RECORD_ADD_MODE_QUEUE;
-	else
+	} else {
 		_recordAddMode = RECORD_ADD_MODE_BOOKING;
+		bookingTherapistName = bookingInfo['therapist_name'];
+	}
 	
 	clearRecordInputs();
 	setRecordTime(recordInfo['minutes'], recordInfo['time_in'], recordInfo['time_out']);
-	setRecordTherapist(recordInfo['therapist_name'], bookingInfo['therapist_name']);
+	setRecordTherapist(recordInfo['therapist_name'], bookingTherapistName);
 	setRecordRow(recordInfo['room_no']);
 	setRecordMassageType(recordInfo['massage_type_id']);
 	
@@ -829,6 +833,7 @@ function showMassageRecord(recordInfo, bookingInfo) {
 
 function clearRecordInputs() {
 	$cbRecordRequested.prop('checked', false);
+	$cbRecordBankTransfer.prop('checked', false);
 	$cbRecordPromo.prop('checked', false);
 	$txtRecordStamp.val(0);
 	setMoneyInputValue($txtRecordCash, 0);
@@ -902,6 +907,7 @@ function getRecordInfo() {
 		, therapist_id: _recordInfo['therapist_id']
 		, massage_type_id: $ddlRecordMassageType.val()
 		, massage_record_requested: $cbRecordRequested.is(':checked')
+		, massage_record_is_banktransfer: $cbRecordBankTransfer.is(':checked')
 		, massage_record_promotion: $cbRecordPromo.is(':checked')
 		, massage_record_stamp: $txtRecordStamp.val()
 		, massage_record_cash: getMoneyInputValue($txtRecordCash)

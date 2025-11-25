@@ -19,7 +19,7 @@ function initPage() {
 	$alertAvailability = $('#alertAvailability');
 	$alertUnavailability = $('#alertUnavailability');
 	
-	initTouchSpinInput($txtMinutes, 10, 1000, 60, 5);
+	initTouchSpinInput($txtMinutes, 10, 1000, 60, 15);
 	$txtMinutes.change(function(){
 		calTimeOut();
 	});

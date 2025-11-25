@@ -34,7 +34,7 @@ function initPage() {
 	$bookingTimeline = $('#bookingTimeline');
 	$toggleShowAllStaff = $('#toggleShowAllStaff');
 	
-	initTouchSpinInput($txtMinutes, 10, 1000, 60, 5);
+	initTouchSpinInput($txtMinutes, 10, 1000, 60, 15);
 	$txtMinutes.change(calTimeOut);
 	
 	//$txtTimeIn.inputmask("hh:mm t"); // "hh:mm t" => 11:30 pm

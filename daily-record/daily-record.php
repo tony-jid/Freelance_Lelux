@@ -348,9 +348,12 @@
 								<div class="col-xs-4 col-sm-2">
 									<span id="lblRecordTherapist" class="form-control form-control-lable"></span>
 								</div>
-								<div class="col-xs-4 col-sm-2">
+								<div class="col-xs-6 col-sm-5">
 									<label class="checkbox-inline">
 										<input type="checkbox" id="cbRecordRequested"> Requested
+									</label>
+									<label class="checkbox-inline">
+										<input type="checkbox" id="cbRecordBankTransfer"> Bank Transfer
 									</label>
 								</div>
 							</div>

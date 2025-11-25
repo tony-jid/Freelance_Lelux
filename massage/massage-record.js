@@ -15,7 +15,7 @@ var $btnAdd, $btnUpdate, $btnDelete, $btnCancelEdit;
 var $tableRecord, $tableRecordBody;
 var dtTableRecord;
 
-var BANK_TRANSFER_EXTRA_COMMISSION = 3;
+var BANK_TRANSFER_EXTRA_HOUR_RATE = 3.0;
 var DATE_PICKER_FORMAT = 'DD, d MM yyyy';
 var MOMENT_DATE_PICKER_FORMAT = 'dddd, D MMMM YYYY';
 var MOMENT_DATE_FORMAT = 'YYYY-M-D';
@@ -149,7 +149,7 @@ function initPage()
 	});
 	
 	$cbIsBankTransfer.change(function(){
-		calReqReward();
+		calCommission();
 	});
 	
 	$cbPromotionPrice.change(function(){
@@ -636,7 +636,6 @@ function calCommission()
 {
 	minutes = $txtMinutes.val();
 	reward = getMoneyInputValue($txtReqReward);
-	commission = minutes * _commissionRate;
 	
 	//commission = minutes * _commissionRate; // 17/12/2024
 	
@@ -671,9 +670,15 @@ function calCommission()
 		}
 	});
 	
-	var hourRate = 35;
-	if (selectedTherapist != null) hourRate = selectedTherapist['therapist_hour_rate'];
+	var hourRate = 35.0;
+	if (selectedTherapist != null) hourRate = parseFloat(selectedTherapist['therapist_hour_rate']);
 	
+	var isBankTransfer = $cbIsBankTransfer.is(':checked');
+	console.log("isBankTransfer", isBankTransfer);
+	if (isBankTransfer) {
+		hourRate += BANK_TRANSFER_EXTRA_HOUR_RATE;
+	}
+	console.log("hourRate", hourRate);
 	var commission = (minutes / 60) * hourRate;
 
 	setMoneyInputValue($txtStdCommission, commission);
@@ -709,11 +714,6 @@ function calReqReward()
 		// calculate Extra Commission from MassageType
 		selectedMassageType = getSelectedMassageType();
 		reward += parseFloat(selectedMassageType['massage_type_commission']);
-	}
-	
-	var isBankTransfer = $cbIsBankTransfer.is(':checked');
-	if (isBankTransfer) {
-		reward += BANK_TRANSFER_EXTRA_COMMISSION;
 	}
 	
 	setMoneyInputValue($txtReqReward, reward);

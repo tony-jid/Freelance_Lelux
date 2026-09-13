@@ -10,6 +10,7 @@ class Const_Config {
 	const REQUEST_CONDITION_PROMOTION = 'request_condition_promotion';
 	const REQUEST_CONDITION_STAMP = 'request_condition_stamp';
 	const REQUEST_CONDITION_AMT = 'request_condition_amt';
+	const THERAPIST_HOUR_RATE = 39; 
 	const BANK_TRANSFER_EXTRA_HOUR_RATE = 3;
 }
 ?>

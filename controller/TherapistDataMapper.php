@@ -1,5 +1,6 @@
 <?php
 	require_once '../controller/DataAccess.php';
+	require_once '../config/Const_Config.php';
 	
 	class TherapistDataMapper
 	{
@@ -115,14 +116,15 @@ order by therapist_name
 		{
 			$sql_format = "
 					insert into therapist
-						(therapist_name, therapist_password, therapist_guarantee, therapist_permission, therapist_active)
-					values ('%s', '%s', %.2f, 1, 1)";
+						(therapist_name, therapist_password, therapist_guarantee, therapist_permission, therapist_active, therapist_hour_rate)
+					values ('%s', '%s', %.2f, 1, 1, %.2f)";
 			
 			$sql = sprintf($sql_format
 					, $therapistInfo['therapist_name']
 					//, $therapistInfo['therapist_username']
 					, $therapistInfo['therapist_password']
-					, $therapistInfo['therapist_guarantee']);
+					, $therapistInfo['therapist_guarantee']
+			        , Const_Config::THERAPIST_HOUR_RATE);
 			
 			return $this->_dataAccess->insert($sql);
 		} // addTherapist
